@@ -48,6 +48,6 @@ Pull requests and pushes to non-`main` branches run `.github/workflows/ci.yml` i
 ## GitHub Pages limits and constraints (relevant to this site)
 
 - **No custom HTTP headers.** GitHub Pages cannot set response headers, so security headers cannot be delivered that way. The site therefore ships its Content Security Policy as a `<meta http-equiv="Content-Security-Policy">` tag (see `src/utils/seo.ts`); all CSS is external and all scripts are bundled, which keeps the CSP strict without `'unsafe-inline'`.
-- **HTTPS is enforced** — Pages serves the site over HTTPS only (TLS is provisioned automatically, also for custom domains).
+- **HTTPS:** TLS is provisioned automatically, also for custom domains; enable the **Enforce HTTPS** toggle in Settings → Pages to redirect plain HTTP to HTTPS (see the custom-domain step above).
 - **Soft limits:** ~100 GB bandwidth per month, **10 builds per hour**, and a **1 GB site size limit**. This site is a few hundred KB, so these are not a practical concern; the 10 builds/hour cap matters only if you push very frequently.
 - Pages serves whatever is in the deployed artifact (`dist/`) as-is, and page URLs are case-sensitive.

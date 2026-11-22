@@ -11,7 +11,7 @@ sections:
     prose: 'Diese Website verwendet keine Cookies, keine Analyse-Tools und keine Tracker. Es werden keine Nutzungsprofile erstellt und keine Reichweiten gemessen.'
   - heading: 'Externe Dienste'
     fields: []
-    prose: 'Diese Website bindet keine externen Dienste ein. insbesondere werden keine externen Schriften, Analyse-Dienste oder Werbenetzwerke geladen; die verwendeten Schriftarten werden lokal von dieser Website ausgeliefert.'
+    prose: 'Diese Website bindet keine externen Dienste ein. Insbesondere werden keine externen Schriften, Analyse-Dienste oder Werbenetzwerke geladen; die verwendeten Schriftarten werden lokal von dieser Website ausgeliefert.'
   - heading: 'Kontaktaufnahme'
     fields: []
     prose: 'TEMPLATE — fachkundige rechtliche Prüfung erforderlich: Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen übermittelten Daten ausschließlich zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage, Speicherdauer und Empfänger sind vor Veröffentlichung durch eine qualifizierte rechtliche Prüfung zu ergänzen.'

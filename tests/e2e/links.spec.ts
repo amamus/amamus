@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 
 const PAGES = ['/amamus/', '/amamus/impressum/', '/amamus/datenschutz/', '/amamus/404.html'];
-const NOT_FOUND_PAGE = '/amamus/404.html';
 
 test.describe('internal links', () => {
   for (const route of PAGES) {
@@ -12,10 +11,8 @@ test.describe('internal links', () => {
       // Every page must have a non-empty <title>.
       expect((await page.title()).trim().length).toBeGreaterThan(0);
 
-      // Real content pages must have exactly one h1 (the 404 page may differ).
-      if (route !== NOT_FOUND_PAGE) {
-        expect(await page.locator('h1').count(), `${route} h1 count`).toBe(1);
-      }
+      // Every page, including the 404, must have exactly one h1.
+      expect(await page.locator('h1').count(), `${route} h1 count`).toBe(1);
 
       // Collect every internal a[href] and request each one.
       const hrefs = await page
