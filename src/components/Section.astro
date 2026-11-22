@@ -1,0 +1,68 @@
+---
+/**
+ * Section — shared wrapper for every home-page section.
+ *
+ * Props: { id, eyebrow?, heading, tone? }. Renders
+ *   <section id class="section section--{tone}"> with a .container, an
+ *   optional eyebrow <p>, the <h2> (labelledby the section) and the slot.
+ * Tones: 'default' (white), 'warm' (cream), 'cool' (sky) — all via tokens.
+ *
+ * Anchor targets: the global `section[id] { scroll-margin-top }` rule (Task 7)
+ * keeps the heading clear of the sticky header when navigating via #hash.
+ * The header block carries data-reveal; slot content adds its own reveals.
+ */
+interface Props {
+  id: string;
+  eyebrow?: string;
+  heading: string;
+  tone?: 'default' | 'warm' | 'cool';
+}
+
+const { id, eyebrow, heading, tone = 'default' } = Astro.props;
+const headingId = `${id}-heading`;
+---
+
+<section id={id} class={`section section--${tone}`} aria-labelledby={headingId}>
+  <div class="container">
+    <div class="section-head" data-reveal>
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2 id={headingId} class="section-heading">{heading}</h2>
+    </div>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--space-2xl);
+  }
+
+  .section--warm {
+    background: var(--color-surface-warm);
+  }
+
+  .section--cool {
+    background: var(--color-surface-cool);
+  }
+
+  .section-head {
+    max-width: 44rem;
+    margin-bottom: var(--space-l);
+  }
+
+  .eyebrow {
+    margin: 0 0 var(--space-2xs);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .section-heading {
+    font-size: var(--step-3);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+</style>

@@ -1,0 +1,69 @@
+/* Design tokens — the ONLY place raw brand hex values may appear.
+   Every component must consume these via var(--…), never raw values.
+   Enforced by tests/unit/styles.test.ts. */
+
+:root {
+  /* ---- Brand palette (raw hex lives here and only here) ---- */
+  --color-navy: #0A2463;
+  --color-sun: #FFC400;
+  --color-cream: #FFF7E6;
+  --color-sky: #E8F2FF;
+  --color-white: #FFFFFF;
+
+  /* ---- Semantic color aliases ---- */
+  --color-ink: var(--color-navy);
+  --color-ink-soft: rgb(10 36 99 / 0.72);
+  --color-surface: var(--color-white);
+  --color-surface-warm: var(--color-cream);
+  --color-surface-cool: var(--color-sky);
+  --color-focus: var(--color-sun);
+
+  /* ---- Typography ----
+     The Fontsource variable packages (@fontsource-variable/nunito-sans,
+     @fontsource-variable/inter) are wired as @font-face in BaseLayout;
+     tokens only name the families plus system fallbacks. ---- */
+  --font-heading: 'Nunito Sans Variable', 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Fluid type scale (mobile → desktop via clamp) */
+  --step--1: clamp(0.8rem, 0.78rem + 0.11vw, 0.88rem);
+  --step-0: clamp(1rem, 0.96rem + 0.22vw, 1.13rem);
+  --step-1: clamp(1.25rem, 1.19rem + 0.33vw, 1.41rem);
+  --step-2: clamp(1.56rem, 1.47rem + 0.44vw, 1.77rem);
+  --step-3: clamp(1.95rem, 1.82rem + 0.66vw, 2.22rem);
+  --step-4: clamp(2.44rem, 2.26rem + 0.88vw, 2.78rem);
+  --step-5: clamp(3.05rem, 2.8rem + 1.26vw, 3.48rem);
+
+  /* ---- Spacing scale (fluid) ---- */
+  --space-3xs: clamp(0.25rem, 0.23rem + 0.11vw, 0.31rem);
+  --space-2xs: clamp(0.5rem, 0.46rem + 0.22vw, 0.56rem);
+  --space-xs: clamp(0.75rem, 0.68rem + 0.33vw, 0.88rem);
+  --space-s: clamp(1rem, 0.91rem + 0.44vw, 1.13rem);
+  --space-m: clamp(1.5rem, 1.37rem + 0.66vw, 1.69rem);
+  --space-l: clamp(2rem, 1.82rem + 0.88vw, 2.25rem);
+  --space-xl: clamp(3rem, 2.74rem + 1.31vw, 3.38rem);
+  --space-2xl: clamp(4rem, 3.65rem + 1.77vw, 4.5rem);
+  --space-3xl: clamp(6rem, 5.47rem + 2.65vw, 6.75rem);
+
+  /* ---- Radii ---- */
+  --radius-s: 0.25rem;
+  --radius-m: 0.5rem;
+  --radius-l: 1rem;
+  --radius-full: 9999px;
+
+  /* ---- Shadows (navy-tinted) ---- */
+  --shadow-s: 0 1px 2px rgb(10 36 99 / 0.08);
+  --shadow-m: 0 4px 12px rgb(10 36 99 / 0.12);
+  --shadow-l: 0 12px 32px rgb(10 36 99 / 0.16);
+
+  /* ---- Motion ---- */
+  --motion-fast: 120ms;
+  --motion-base: 240ms;
+  --motion-slow: 480ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---- Layout ---- */
+  --container: 72rem;
+  --header-height: 4.5rem;
+}

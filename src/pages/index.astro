@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import SnailDivider from '../components/SnailDivider.astro';
+import WhatWeDo from '../components/WhatWeDo.astro';
+import Philosophy from '../components/Philosophy.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout path="/">
+  <Header path="/" />
+  <main id="main">
+    <Hero />
+    <SnailDivider />
+    <WhatWeDo />
+    <Philosophy />
+    <About />
+    <Contact />
+  </main>
+  <Footer path="/" />
+</BaseLayout>

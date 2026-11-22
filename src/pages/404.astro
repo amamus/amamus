@@ -1,0 +1,66 @@
+---
+/**
+ * 404 — friendly snail error page. noIndex (robots must not index it);
+ * the single link back home goes through withBase('/') so it lands on
+ * /amamus/ under the GitHub Pages base.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { withBase } from '../utils/paths';
+import snailRaw from '../assets/brand/snail.svg?raw';
+
+const path = '/404/';
+// The wrapper is aria-hidden, so the SVG's decorative <title>/aria-labelledby
+// are stripped — the header logo injects the same master on this page and
+// the id must stay unique (axe duplicate-id-aria).
+const snailSvg = snailRaw
+  .replace(/ aria-labelledby="[^"]*"/, '')
+  .replace(/<title[^>]*>[\s\S]*?<\/title>/, '');
+---
+
+<BaseLayout title="404" path={path} noIndex>
+  <Header path={path} />
+  <main id="main">
+    <div class="container not-found">
+      <div class="not-found-snail" aria-hidden="true">
+        <Fragment set:html={snailSvg} />
+      </div>
+      <h1>This page wandered off.</h1>
+      <p>Like the snail, some paths lead nowhere. Let’s get back to solid ground.</p>
+      <p><a class="not-found-home" href={withBase('/')}>Back to amamus iocum</a></p>
+    </div>
+  </main>
+  <Footer path={path} />
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-s);
+    padding-block: var(--space-2xl);
+    text-align: center;
+  }
+
+  .not-found-snail {
+    width: clamp(6rem, 20vw, 10rem);
+  }
+
+  .not-found-home {
+    display: inline-block;
+    margin-top: var(--space-xs);
+    padding: var(--space-2xs) var(--space-m);
+    border-radius: var(--radius-full);
+    background: var(--color-navy);
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .not-found-home:hover {
+    background: var(--color-ink-soft);
+  }
+</style>

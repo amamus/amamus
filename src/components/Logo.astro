@@ -1,0 +1,67 @@
+---
+/**
+ * Logo — snail mark + "amamus iocum" wordmark lockup, linking home.
+ *
+ * The snail SVG masters live in src/assets/brand and are imported raw and
+ * injected with set:html. The mark span is aria-hidden (the wrapping link
+ * carries the accessible name), so the SVG's own <title> is decorative only.
+ * All colors come from the SVG masters themselves; styles here use tokens only.
+ */
+import { withBase } from '../utils/paths';
+import snail from '../assets/brand/snail.svg?raw';
+import snailReversed from '../assets/brand/snail-reversed.svg?raw';
+
+interface Props {
+  /** 'horizontal' = mark and wordmark side by side (header); 'stacked' = on top of each other. */
+  variant?: 'horizontal' | 'stacked';
+  /** Reversed (light-on-dark) snail master for use on navy surfaces. */
+  reversed?: boolean;
+}
+
+const { variant = 'horizontal', reversed = false } = Astro.props;
+// The mark span is aria-hidden (the wrapping link carries the accessible
+// name), so the SVG's own <title>/aria-labelledby are stripped here: they
+// would otherwise duplicate the id when the snail master also appears in the
+// hero or 404 body on the same page (axe duplicate-id-aria).
+const mark = (reversed ? snailReversed : snail)
+  .replace(/ aria-labelledby="[^"]*"/, '')
+  .replace(/<title[^>]*>[\s\S]*?<\/title>/, '');
+---
+
+<a class="logo" data-variant={variant} href={withBase('/')} aria-label="amamus iocum — home">
+  <span class="logo-mark" aria-hidden="true" set:html={mark} />
+  <span class="wordmark">amamus iocum</span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .logo[data-variant='stacked'] {
+    flex-direction: column;
+  }
+
+  .logo-mark {
+    display: inline-flex;
+  }
+
+  /* set:html content is not scoped, so target the injected svg globally */
+  .logo-mark :global(svg) {
+    height: 2.5rem;
+    width: auto;
+  }
+
+  .wordmark {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: var(--step-1);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+</style>

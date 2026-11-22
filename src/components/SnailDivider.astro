@@ -1,0 +1,47 @@
+---
+/**
+ * SnailDivider — decorative flowing "baseline" stroke between the hero and
+ * the first section, echoing the snail's ground line. Purely decorative:
+ * the wrapper is aria-hidden and the svg is not focusable. Colors come from
+ * tokens (navy at low opacity + a sun accent stroke).
+ */
+---
+
+<div class="snail-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 48" preserveAspectRatio="none" focusable="false">
+    <path
+      class="divider-line"
+      d="M 0 30 C 180 8 360 44 540 30 C 720 16 900 40 1080 28 C 1260 16 1380 34 1440 24"
+      fill="none"
+      stroke-width="3"
+      stroke-linecap="round"></path>
+    <path
+      class="divider-line divider-line--sun"
+      d="M 0 40 C 200 20 420 48 640 36 C 860 24 1080 46 1440 32"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"></path>
+  </svg>
+</div>
+
+<style>
+  .snail-divider {
+    line-height: 0;
+  }
+
+  .snail-divider svg {
+    display: block;
+    width: 100%;
+    height: 3rem;
+  }
+
+  .divider-line {
+    stroke: var(--color-navy);
+    opacity: 0.18;
+  }
+
+  .divider-line--sun {
+    stroke: var(--color-sun);
+    opacity: 0.55;
+  }
+</style>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" role="img" aria-labelledby="snail-reversed-title">
+  <title id="snail-reversed-title">amamus iocum snail logo (reversed)</title>
+  <!-- Reversed variant for dark (navy) backgrounds: navy shapes become cream,
+       antenna tips stay sun yellow, face strokes become navy. -->
+  <g class="baseline">
+    <path d="M 428 770 C 421 791 430 808 460 816 C 530 826 680 824 800 818 C 880 814 940 806 968 794" fill="none" stroke="#FFF7E6" stroke-width="42" stroke-linecap="round"/>
+  </g>
+  <g class="shell">
+    <path fill="#FFF7E6" fill-rule="evenodd" d="M 700 406
+      C 765 406 820 450 832 520
+      C 840 578 850 652 848 722
+      C 812 756 745 770 716 767
+      C 658 774 604 780 550 750
+      C 503 724 476 660 462 588
+      C 466 543 488 503 516 478
+      C 550 440 622 406 700 406
+      Z
+      M 663 507
+      A 91 91 0 1 0 663 689
+      A 91 91 0 1 0 663 507
+      Z"/>
+  </g>
+  <g class="body">
+    <path fill="#FFF7E6" d="M 957 336
+      C 1000 336 1030 360 1044 400
+      C 1052 420 1053 424 1052 440
+      C 1048 520 1030 600 1005 675
+      C 985 735 958 785 925 812
+      C 900 830 862 832 842 820
+      C 840 700 840 590 846 512
+      C 846 460 858 428 884 394
+      C 900 372 922 334 957 336
+      Z"/>
+    <g class="face" fill="none" stroke="#0A2463" stroke-width="15" stroke-linecap="round">
+      <g class="eyes">
+        <path d="M 897 417 Q 923 390 949 417"/>
+        <path d="M 969 417 Q 997 390 1025 417"/>
+      </g>
+      <path class="smile" d="M 931 448 Q 960 476 990 448"/>
+    </g>
+  </g>
+  <g class="antennae">
+    <path class="stalk" d="M 922 356 C 912 322 898 292 882 264" fill="none" stroke="#FFF7E6" stroke-width="26" stroke-linecap="round"/>
+    <path class="stalk" d="M 992 356 C 1004 322 1020 292 1036 264" fill="none" stroke="#FFF7E6" stroke-width="26" stroke-linecap="round"/>
+    <circle class="tip" cx="866" cy="217" r="48" fill="#FFC400"/>
+    <circle class="tip" cx="1056" cy="217" r="48" fill="#FFC400"/>
+    <circle class="highlight" cx="884" cy="198" r="14" fill="#FFFFFF"/>
+    <circle class="highlight" cx="1074" cy="198" r="14" fill="#FFFFFF"/>
+  </g>
+</svg>

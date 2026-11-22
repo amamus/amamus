@@ -1,0 +1,97 @@
+---
+/**
+ * Impressum (German legal notice) — DRAFT page.
+ *
+ * Reads the `legal` collection entry "impressum" and renders every required
+ * field. Fields with `value: null` are NEVER filled with invented data — they
+ * render a visible <LegalBlocker /> (PUBLICATION BLOCKER) instead, and the
+ * draftNotice banner on a sun background marks the whole page as a draft.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import LegalBlocker from '../components/LegalBlocker.astro';
+import { legalField } from '../utils/legal';
+
+const path = '/impressum/';
+const [entry] = await getCollection('legal', ({ id }) => id === 'impressum');
+if (!entry) throw new Error('Legal collection entry "impressum" not found');
+const { title, description, draftNotice, sections } = entry.data;
+
+// Classify every field up front: a null value becomes a publication blocker.
+const renderedSections = sections.map((section) => ({
+  ...section,
+  fields: section.fields.map((field) => ({ label: field.label, status: legalField(field.value, field.label) })),
+}));
+---
+
+<BaseLayout title={title} description={description} path={path} lang="de">
+  <Header path={path} />
+  <main id="main">
+    <div class="container legal-page">
+      <h1>{title}</h1>
+      <p class="legal-draft-banner" role="note">{draftNotice}</p>
+      {
+        renderedSections.map((section) => (
+          <section class="legal-section">
+            <h2>{section.heading}</h2>
+            {section.prose && <p>{section.prose}</p>}
+            {section.fields.length > 0 && (
+              <dl class="legal-fields">
+                {section.fields.map((field) => (
+                  <Fragment>
+                    <dt>{field.label}</dt>
+                    <dd>
+                      {field.status.status === 'ok' ? (
+                        field.status.value
+                      ) : (
+                        <LegalBlocker label={field.status.label} />
+                      )}
+                    </dd>
+                  </Fragment>
+                ))}
+              </dl>
+            )}
+          </section>
+        ))
+      }
+    </div>
+  </main>
+  <Footer path={path} />
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-block: var(--space-xl);
+    max-width: 46rem;
+  }
+
+  .legal-draft-banner {
+    margin-block: var(--space-m);
+    padding: var(--space-xs) var(--space-s);
+    border: 2px solid var(--color-navy);
+    border-radius: var(--radius-m);
+    background: var(--color-sun);
+    color: var(--color-navy);
+    font-weight: 700;
+  }
+
+  .legal-section {
+    margin-top: var(--space-l);
+  }
+
+  .legal-fields {
+    margin: var(--space-s) 0 0;
+  }
+
+  .legal-fields dt {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    margin-top: var(--space-xs);
+  }
+
+  .legal-fields dd {
+    margin: var(--space-3xs) 0 0;
+  }
+</style>

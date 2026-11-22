@@ -1,0 +1,95 @@
+---
+/**
+ * BaseLayout — the single HTML shell for every page.
+ *
+ * Head: charset, viewport, title/description, canonical, robots, strict CSP
+ * (via <meta> — GitHub Pages cannot set CSP headers), Open Graph + Twitter
+ * cards, favicons, theme-color, and preloads for the self-hosted variable
+ * fonts. Structured data is emitted as schema.org MICRODATA (never a JSON-LD
+ * <script> tag) so the CSP can stay strict without 'unsafe-inline'.
+ *
+ * Body start: skip link, the visually-hidden Organization microdata block,
+ * then the page <slot />. Pages render <main id="main"> themselves.
+ */
+import { siteConfig } from '../config/site.config';
+import { withBase, absoluteUrl } from '../utils/paths';
+import { pageTitle, canonical, ogImageUrl, CSP_POLICY } from '../utils/seo';
+import { t, type Lang } from '../config/i18n';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '@fontsource-variable/inter/index.css';
+import '@fontsource-variable/nunito-sans/index.css';
+import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import nunitoWoff2 from '@fontsource-variable/nunito-sans/files/nunito-sans-latin-wght-normal.woff2?url';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Internal path of the page (e.g. '/' or '/impressum/') — used for canonical + og:url. */
+  path: string;
+  ogImage?: string;
+  noIndex?: boolean;
+  /** Document language. Defaults to 'en'; the German dictionary lands with the legal pages. */
+  lang?: 'en' | 'de';
+}
+
+const { title, description, path, ogImage, noIndex } = Astro.props;
+const lang = Astro.props.lang ?? 'en';
+// `dict` currently ships English only; the German dictionary lands with the
+// legal pages (Task 9), which widen `Lang` — until then `lang` still drives
+// the <html lang> attribute and a not-yet-translated label fails loudly in t().
+const labelLang = lang as Lang;
+
+const metaDescription = description ?? siteConfig.description;
+const canonicalUrl = canonical(path);
+const ogImageContent = ogImage ?? ogImageUrl();
+const robots = noIndex ? 'noindex,follow' : 'index,follow';
+const pageTitleContent = pageTitle(title);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitleContent}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content={siteConfig.brand.themeColor} />
+    <meta http-equiv="Content-Security-Policy" content={CSP_POLICY} />
+
+    <meta property="og:title" content={pageTitleContent} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageContent} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitleContent} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImageContent} />
+
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="icon" type="image/png" sizes="32x32" href={withBase('/favicon-32.png')} />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
+
+    <link rel="preload" href={interWoff2} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={nunitoWoff2} as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t(labelLang, 'skipLink')}</a>
+    <div class="visually-hidden" itemscope itemtype="https://schema.org/Organization">
+      <span itemprop="name">{siteConfig.name}</span>
+      <link itemprop="url" href={absoluteUrl('/')} />
+      <link itemprop="logo" href={absoluteUrl('/favicon.svg')} />
+    </div>
+    <slot />
+    <script>
+      // Scroll-reveal system, bundled by Astro into an external module under
+      // /_astro/ (base-prefixed, deferred, script-src 'self' CSP-safe).
+      import '../scripts/reveal';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+---
+/**
+ * LegalBlocker — the visible marker for a missing legally required field.
+ * Never paper over missing legal data with invented values: render this
+ * blocker instead. Styled with the sun accent so it cannot be missed.
+ */
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<p class="legal-blocker">
+  <strong>PUBLICATION BLOCKER:</strong> {label} has not been provided. This page is not legally
+  complete and must not be treated as published legal information.
+</p>
+
+<style>
+  .legal-blocker {
+    margin: 0;
+    padding: var(--space-2xs) var(--space-xs);
+    border: 2px solid var(--color-navy);
+    border-left-width: 0.5rem;
+    border-radius: var(--radius-m);
+    background: var(--color-sun);
+    color: var(--color-navy);
+    font-weight: 600;
+  }
+</style>
