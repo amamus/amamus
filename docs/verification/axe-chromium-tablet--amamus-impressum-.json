@@ -13,7 +13,7 @@
     "orientationAngle": 0,
     "orientationType": "landscape-primary"
   },
-  "timestamp": "2026-11-22T14:46:56.578Z",
+  "timestamp": "2026-11-22T15:05:10.576Z",
   "url": "http://localhost:4321/amamus/impressum/",
   "toolOptions": {
     "runOnly": {
@@ -3468,24 +3468,6 @@
           "any": [
             {
               "id": "duplicate-id-aria",
-              "data": "snail-title",
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<title id=\"snail-title\">amamus iocum snail logo</title>",
-          "target": [
-            "#snail-title"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
               "data": "mobile-nav",
               "relatedNodes": [],
               "impact": "critical",
@@ -3498,24 +3480,6 @@
           "html": "<div id=\"mobile-nav\" class=\"mobile-nav\" hidden=\"\" data-astro-cid-nen7h5rs=\"\">",
           "target": [
             "#mobile-nav"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
-              "data": "snail-reversed-title",
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<title id=\"snail-reversed-title\">amamus iocum snail logo (reversed)</title>",
-          "target": [
-            "#snail-reversed-title"
           ]
         }
       ]

@@ -13,7 +13,7 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-11-22T14:46:57.783Z",
+  "timestamp": "2026-11-22T15:05:11.784Z",
   "url": "http://localhost:4321/amamus/404.html",
   "toolOptions": {
     "runOnly": {
@@ -2243,7 +2243,7 @@
     },
     {
       "id": "duplicate-id-aria",
-      "impact": "critical",
+      "impact": null,
       "tags": [
         "cat.parsing",
         "wcag2a",
@@ -2273,24 +2273,6 @@
           "html": "<div id=\"mobile-nav\" class=\"mobile-nav\" hidden=\"\" data-astro-cid-nen7h5rs=\"\">",
           "target": [
             "#mobile-nav"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
-              "data": "snail-reversed-title",
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<title id=\"snail-reversed-title\">amamus iocum snail logo (reversed)</title>",
-          "target": [
-            "#snail-reversed-title"
           ]
         }
       ]
@@ -3273,51 +3255,6 @@
       ]
     }
   ],
-  "incomplete": [
-    {
-      "id": "duplicate-id-aria",
-      "impact": "critical",
-      "tags": [
-        "cat.parsing",
-        "wcag2a",
-        "wcag412",
-        "EN-301-549",
-        "EN-9.4.1.2",
-        "RGAAv4",
-        "RGAA-8.2.1"
-      ],
-      "description": "Ensure every id attribute value used in ARIA and in labels is unique",
-      "help": "IDs used in ARIA and labels must be unique",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/duplicate-id-aria?application=axeAPI",
-      "nodes": [
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
-              "data": "snail-title",
-              "relatedNodes": [
-                {
-                  "html": "<title id=\"snail-title\">amamus iocum snail logo</title>",
-                  "target": [
-                    ".not-found-snail > svg[aria-labelledby=\"snail-title\"] > title"
-                  ]
-                }
-              ],
-              "impact": "critical",
-              "message": "Document has multiple elements referenced with ARIA with the same id attribute: snail-title"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": "critical",
-          "html": "<title id=\"snail-title\">amamus iocum snail logo</title>",
-          "target": [
-            ".logo-mark[aria-hidden=\"true\"][data-astro-cid-f7espo7c=\"\"] > svg[aria-labelledby=\"snail-title\"] > title"
-          ],
-          "failureSummary": "Fix any of the following:\n  Document has multiple elements referenced with ARIA with the same id attribute: snail-title"
-        }
-      ]
-    }
-  ],
+  "incomplete": [],
   "violations": []
 }

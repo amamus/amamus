@@ -13,7 +13,7 @@
     "orientationAngle": 0,
     "orientationType": "landscape-primary"
   },
-  "timestamp": "2026-11-22T14:46:55.502Z",
+  "timestamp": "2026-11-22T15:05:09.500Z",
   "url": "http://localhost:4321/amamus/",
   "toolOptions": {
     "runOnly": {
@@ -988,7 +988,7 @@
           "impact": null,
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
-            ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"]"
+            "svg[aria-labelledby=\"snail-title\"]"
           ]
         },
         {
@@ -1318,7 +1318,7 @@
           "impact": null,
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
-            ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"]"
+            "svg[aria-labelledby=\"snail-title\"]"
           ]
         },
         {
@@ -1462,7 +1462,7 @@
           "impact": null,
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
-            ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"]"
+            "svg[aria-labelledby=\"snail-title\"]"
           ]
         },
         {
@@ -1916,7 +1916,7 @@
           "impact": null,
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
-            ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"]"
+            "svg[aria-labelledby=\"snail-title\"]"
           ]
         },
         {
@@ -2060,7 +2060,7 @@
           "impact": null,
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
-            ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"]"
+            "svg[aria-labelledby=\"snail-title\"]"
           ]
         },
         {
@@ -2128,7 +2128,7 @@
           "impact": null,
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
-            ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"]"
+            "svg[aria-labelledby=\"snail-title\"]"
           ]
         },
         {
@@ -2306,7 +2306,7 @@
           "impact": null,
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
-            ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"]"
+            "svg[aria-labelledby=\"snail-title\"]"
           ]
         },
         {
@@ -2588,7 +2588,7 @@
           "impact": null,
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
-            ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"]"
+            "svg[aria-labelledby=\"snail-title\"]"
           ]
         },
         {
@@ -4198,7 +4198,7 @@
     },
     {
       "id": "duplicate-id-aria",
-      "impact": "critical",
+      "impact": null,
       "tags": [
         "cat.parsing",
         "wcag2a",
@@ -4246,6 +4246,24 @@
           "html": "<h1 class=\"hero-title\" id=\"hero-title\" data-astro-cid-ge2uvauf=\"\">Life is too short for short-term thinking.</h1>",
           "target": [
             "#hero-title"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "snail-title",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<title id=\"snail-title\">amamus iocum snail logo</title>",
+          "target": [
+            "#snail-title"
           ]
         },
         {
@@ -4336,24 +4354,6 @@
           "html": "<h2 id=\"contact-heading\" class=\"section-heading\" data-astro-cid-w6ymvdtg=\"\">Contact</h2>",
           "target": [
             "#contact-heading"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
-              "data": "snail-reversed-title",
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<title id=\"snail-reversed-title\">amamus iocum snail logo (reversed)</title>",
-          "target": [
-            "#snail-reversed-title"
           ]
         }
       ]
@@ -5493,7 +5493,7 @@
           "impact": null,
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
-            ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"]"
+            "svg[aria-labelledby=\"snail-title\"]"
           ]
         }
       ]
@@ -5541,7 +5541,7 @@
           "impact": null,
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
-            ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"]"
+            "svg[aria-labelledby=\"snail-title\"]"
           ]
         }
       ]
@@ -5966,51 +5966,6 @@
       ]
     }
   ],
-  "incomplete": [
-    {
-      "id": "duplicate-id-aria",
-      "impact": "critical",
-      "tags": [
-        "cat.parsing",
-        "wcag2a",
-        "wcag412",
-        "EN-301-549",
-        "EN-9.4.1.2",
-        "RGAAv4",
-        "RGAA-8.2.1"
-      ],
-      "description": "Ensure every id attribute value used in ARIA and in labels is unique",
-      "help": "IDs used in ARIA and labels must be unique",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/duplicate-id-aria?application=axeAPI",
-      "nodes": [
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
-              "data": "snail-title",
-              "relatedNodes": [
-                {
-                  "html": "<title id=\"snail-title\">amamus iocum snail logo</title>",
-                  "target": [
-                    ".hero-snail > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"] > title"
-                  ]
-                }
-              ],
-              "impact": "critical",
-              "message": "Document has multiple elements referenced with ARIA with the same id attribute: snail-title"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": "critical",
-          "html": "<title id=\"snail-title\">amamus iocum snail logo</title>",
-          "target": [
-            ".logo-mark[data-astro-cid-f7espo7c=\"\"][aria-hidden=\"true\"] > svg[aria-labelledby=\"snail-title\"][viewBox=\"0 0 1536 1024\"][role=\"img\"] > title"
-          ],
-          "failureSummary": "Fix any of the following:\n  Document has multiple elements referenced with ARIA with the same id attribute: snail-title"
-        }
-      ]
-    }
-  ],
+  "incomplete": [],
   "violations": []
 }
