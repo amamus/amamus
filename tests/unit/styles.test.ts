@@ -24,7 +24,7 @@ describe('design tokens', () => {
     for (const f of files) {
       if (f.endsWith('tokens.css')) continue;
       const content = readFileSync(f, 'utf8');
-      for (const hex of ['#0A2463', '#FFC400', '#FFF7E6', '#E8F2FF']) {
+      for (const hex of ['#0A2463', '#FFC400', '#FFF7E6', '#E8F2FF', '#FFFFFF', '#FFF']) {
         expect(content.toLowerCase()).not.toContain(hex.toLowerCase());
       }
     }
