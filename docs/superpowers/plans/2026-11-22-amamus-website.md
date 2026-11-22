@@ -65,7 +65,7 @@ Note: `BaseLayout.astro` lives in `src/layouts/` (Astro convention); components 
 
 ---
 
-## Task 1 — Scaffold project, configs, CI-ready scripts, smoke build
+## Task 1 — Scaffold project, configs, CI-ready scripts, smoke build ✅
 
 **Files:**
 - Create: `package.json`, `astro.config.mjs`, `tsconfig.json`, `vitest.config.ts`, `playwright.config.ts`, `eslint.config.mjs`, `.gitignore`, `src/config/site.config.ts`, `src/utils/validateConfig.ts`, `src/pages/index.astro` (temporary smoke page), `src/styles/tokens.css` (stub with the 5 colors), `src/styles/global.css` (stub)
@@ -292,7 +292,7 @@ Run `npm run build && npx vitest run tests/unit/smoke.test.ts` → PASS. (`astro
 
 ---
 
-## Task 2 — Core utilities (TDD): paths, seo, legal, i18n
+## Task 2 — Core utilities (TDD): paths, seo, legal, i18n ✅
 
 **Files:**
 - Create: `src/utils/paths.ts`, `src/utils/seo.ts`, `src/utils/legal.ts`, `src/config/i18n.ts`
@@ -352,7 +352,7 @@ Implementation contract for `withBase`: normalize slashes; if `path` already sta
 
 ---
 
-## Task 3 — Brand assets: vectorize logo.png into SVG masters + generated PNGs
+## Task 3 — Brand assets: vectorize logo.png into SVG masters + generated PNGs ✅
 
 **Files:**
 - Create: `docs/brand/logo-reference.png` (copy of root `logo.png`), `src/assets/brand/snail.svg`, `src/assets/brand/snail-mono.svg`, `src/assets/brand/snail-reversed.svg`, `src/assets/brand/og-image.svg`, `public/favicon.svg`, `scripts/brand-assets.mjs`
@@ -412,7 +412,7 @@ Run → red (files missing) → create (steps 2–6) → green.
 
 *(Tasks 4–13 continue in the same file — see below.)*
 
-## Task 4 — Design tokens + global styles + style lint
+## Task 4 — Design tokens + global styles + style lint ✅
 
 **Files:**
 - Create: `src/styles/tokens.css` (replace stub), `src/styles/global.css` (replace stub)
@@ -482,7 +482,7 @@ Run → red (tokens missing) → implement → green.
 
 ---
 
-## Task 5 — BaseLayout: head, SEO meta, self-hosted fonts, strict CSP, skip link, microdata
+## Task 5 — BaseLayout: head, SEO meta, self-hosted fonts, strict CSP, skip link, microdata ✅
 
 **Files:**
 - Create: `src/layouts/BaseLayout.astro`, `src/env.d.ts`
@@ -572,7 +572,7 @@ import nunitoWoff2 from '@fontsource-variable/nunito-sans/files/nunito-sans-lati
 
 ---
 
-## Task 6 — Header + responsive accessible navigation
+## Task 6 — Header + responsive accessible navigation ✅
 
 **Files:**
 - Create: `src/components/Header.astro`, `src/components/Logo.astro` (snail SVG + wordmark lockup)
@@ -654,7 +654,7 @@ test.describe('header navigation', () => {
 
 ---
 
-## Task 7 — Hero with snail + motion system (reveal on scroll, reduced motion)
+## Task 7 — Hero with snail + motion system (reveal on scroll, reduced motion) ✅
 
 **Files:**
 - Create: `src/components/Hero.astro`, `src/components/Reveal.astro` (or `data-reveal` handled by one script), `src/scripts/reveal.ts`
@@ -795,7 +795,7 @@ test('reduced motion disables snail animation and reveals', async ({ page }) => 
 
 ---
 
-## Task 8 — Home sections: WhatWeDo, Philosophy, About, Contact, Footer, dividers + anchor e2e
+## Task 8 — Home sections: WhatWeDo, Philosophy, About, Contact, Footer, dividers + anchor e2e ✅
 
 **Files:**
 - Create: `src/components/Section.astro`, `WhatWeDo.astro`, `Philosophy.astro`, `About.astro`, `Contact.astro`, `Footer.astro`, `SnailDivider.astro`, glyph SVGs inline in WhatWeDo
@@ -820,7 +820,7 @@ test('reduced motion disables snail animation and reveals', async ({ page }) => 
 
 ---
 
-## Task 9 — Legal pages, 404, robots.txt, sitemap
+## Task 9 — Legal pages, 404, robots.txt, sitemap ✅
 
 **Files:**
 - Create: `src/content/config.ts`, `src/content/legal/impressum.md`, `src/content/legal/datenschutz.md`, `src/pages/impressum.astro`, `src/pages/datenschutz.astro`, `src/pages/404.astro`, `src/pages/sitemap.xml.ts`, `src/components/LegalBlocker.astro`, `public/robots.txt`
@@ -887,7 +887,7 @@ Sitemap: https://amamus.github.io/amamus/sitemap.xml
 
 ---
 
-## Task 10 — Verification harness: link checker, e2e extras, axe a11y, Lighthouse
+## Task 10 — Verification harness: link checker, e2e extras, axe a11y, Lighthouse ✅
 
 **Files:**
 - Create: `tests/scripts/check-links.mjs`, `tests/scripts/lighthouse.mjs`, `tests/e2e/links.spec.ts`, `tests/e2e/a11y.spec.ts`, `tests/e2e/noExternalRequests.spec.ts`, `tests/e2e/viewports.spec.ts`
@@ -938,7 +938,7 @@ test.describe('axe-core WCAG 2.2 AA', () => {
 
 ---
 
-## Task 11 — GitHub Actions: CI + Pages deployment (least privilege)
+## Task 11 — GitHub Actions: CI + Pages deployment (least privilege) ✅
 
 **Files:**
 - Create: `.github/workflows/ci.yml`, `.github/workflows/deploy-pages.yml`
@@ -1012,7 +1012,7 @@ jobs:
 
 ---
 
-## Task 12 — Documentation: README + deployment/legal/verification docs
+## Task 12 — Documentation: README + deployment/legal/verification docs ✅
 
 **Files:**
 - Modify: `README.md` (replace template)
@@ -1030,7 +1030,7 @@ jobs:
 
 ---
 
-## Task 13 — Final verification (verification-before-completion) + PR (finishing-a-development-branch)
+## Task 13 — Final verification (verification-before-completion) + PR (finishing-a-development-branch) ✅
 
 **Files:**
 - Create: `docs/verification/REPORT.md` (evidence index), PR via `gh`
