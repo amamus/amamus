@@ -1,0 +1,210 @@
+---
+/**
+ * Hero — above-the-fold landing block with the animated snail.
+ *
+ * Copy comes from src/content/home.ts (single source of truth, shared with
+ * the Task 8 sections). Layout: split grid (2 columns at >= 48rem) — left the
+ * text block (eyebrow with sun dot, h1, intro, CTA row), right the snail in
+ * a cream rounded panel. Both blocks carry data-reveal (handled globally by
+ * src/scripts/reveal.ts).
+ *
+ * The snail SVG master is imported raw and injected with set:html; its
+ * colors come from the master itself. Because set:html content carries no
+ * scoping attribute, the svg/antennae rules below use :global() (same
+ * pattern as Logo.astro). Idle motion is transform-only CSS keyframes and
+ * is forced off by the global prefers-reduced-motion kill switch.
+ *
+ * CLS: the svg keeps its intrinsic aspect ratio via aspect-ratio + width,
+ * so the panel reserves its space before/while the svg renders.
+ */
+import { home } from '../content/home';
+import snailSvg from '../assets/brand/snail.svg?raw';
+
+const { hero } = home;
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-copy" data-reveal>
+      <p class="hero-eyebrow">
+        <span class="sun-dot" aria-hidden="true"></span>
+        {hero.eyebrow}
+      </p>
+      <h1 class="hero-title" id="hero-title">{hero.title}</h1>
+      <p class="hero-intro">{hero.intro}</p>
+      <div class="hero-ctas">
+        <a class="cta cta-primary" href={hero.primaryCta.href}>{hero.primaryCta.label}</a>
+        <a class="cta cta-secondary" href={hero.secondaryCta.href}>{hero.secondaryCta.label}</a>
+      </div>
+    </div>
+    <div class="hero-snail" data-reveal>
+      <Fragment set:html={snailSvg} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--space-xl) var(--space-2xl);
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: var(--space-l);
+    align-items: center;
+  }
+
+  @media (min-width: 48rem) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: var(--space-xl);
+    }
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin: 0 0 var(--space-s);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .sun-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: var(--radius-full);
+    background: var(--color-sun);
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--color-sun) 30%, transparent);
+  }
+
+  .hero-title {
+    font-size: var(--step-5);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    max-width: 14ch;
+    margin-bottom: var(--space-s);
+  }
+
+  .hero-intro {
+    margin: 0 0 var(--space-m);
+    font-size: var(--step-1);
+    color: var(--color-ink-soft);
+    max-width: 44ch;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xs) var(--space-m);
+    border-radius: var(--radius-full);
+    border: 2px solid transparent;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--step-0);
+    text-decoration: none;
+    transition:
+      background-color var(--motion-fast) var(--ease-out),
+      box-shadow var(--motion-fast) var(--ease-out),
+      transform var(--motion-fast) var(--ease-out);
+  }
+
+  .cta:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-m);
+  }
+
+  .cta-primary {
+    background: var(--color-navy);
+    color: var(--color-white);
+  }
+
+  .cta-primary:hover {
+    background: color-mix(in srgb, var(--color-navy) 82%, var(--color-white));
+  }
+
+  /* On the navy button the default navy focus ring would be invisible. */
+  .cta-primary:focus-visible {
+    outline-color: var(--color-sun);
+  }
+
+  .cta-secondary {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+    background: transparent;
+  }
+
+  .cta-secondary:hover {
+    background: var(--color-surface-cool);
+  }
+
+  /* Snail panel: cream card, sky blob behind the mark, space reserved. */
+  .hero-snail {
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    padding: var(--space-m);
+    background: var(--color-surface-warm);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-l);
+  }
+
+  .hero-snail::before {
+    content: '';
+    position: absolute;
+    top: -18%;
+    right: -14%;
+    width: 68%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-full);
+    background: var(--color-surface-cool);
+  }
+
+  /* set:html content is not scoped, so target the injected svg globally */
+  .hero-snail :global(svg) {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1536 / 1024; /* reserve the panel height — no CLS */
+    animation: bob 4.5s var(--ease-in-out) infinite alternate;
+  }
+
+  .hero-snail :global(.antennae) {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: sway 6s var(--ease-out) infinite alternate;
+  }
+
+  @keyframes sway {
+    from {
+      transform: rotate(-3deg);
+    }
+
+    to {
+      transform: rotate(3deg);
+    }
+  }
+
+  @keyframes bob {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(-8px);
+    }
+  }
+</style>

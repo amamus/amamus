@@ -1,12 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
-import { siteConfig } from '../config/site.config';
+import Hero from '../components/Hero.astro';
 ---
 
 <BaseLayout path="/">
   <Header path="/" />
   <main id="main">
-    <h1>{siteConfig.name}</h1>
+    <Hero />
   </main>
 </BaseLayout>

@@ -81,6 +81,30 @@
   .on-dark :focus-visible {
     outline-color: var(--color-sun);
   }
+
+  /* Hash-targeted sections land below the sticky header, not under it. */
+  section[id] {
+    scroll-margin-top: var(--header-height);
+  }
+
+  /* Scroll-reveal states (class toggling lives in src/scripts/reveal.ts).
+     Only below-the-fold elements ever get .reveal-pending, so there is no
+     flash of hidden content above the fold and no layout shift. */
+  [data-reveal] {
+    transition:
+      opacity var(--motion-base) var(--ease-out),
+      transform var(--motion-base) var(--ease-out);
+  }
+
+  .reveal-pending {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ---------- Utilities ---------- */
@@ -138,6 +162,7 @@
   *,
   *::before,
   *::after {
+    animation-name: none !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

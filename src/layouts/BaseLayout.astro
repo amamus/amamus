@@ -86,5 +86,10 @@ const pageTitleContent = pageTitle(title);
       <link itemprop="logo" href={absoluteUrl('/favicon.svg')} />
     </div>
     <slot />
+    <script>
+      // Scroll-reveal system, bundled by Astro into an external module under
+      // /_astro/ (base-prefixed, deferred, script-src 'self' CSP-safe).
+      import '../scripts/reveal';
+    </script>
   </body>
 </html>
