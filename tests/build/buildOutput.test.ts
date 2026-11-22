@@ -178,3 +178,74 @@ describe.skipIf(!distReady)('home sections (Task 8)', () => {
     expect(h).toContain(siteConfig.tagline);
   });
 });
+
+describe.skipIf(!distReady)('legal pages, 404, robots, sitemap (Task 9)', () => {
+  const read = (p: string) => readFileSync(p, 'utf8');
+
+  it('dist/impressum/index.html exists, is German, has blockers and the right canonical', () => {
+    expect(existsSync('dist/impressum/index.html')).toBe(true);
+    const h = read('dist/impressum/index.html');
+    expect(h).toContain('<html lang="de"');
+    expect(h).toContain('PUBLICATION BLOCKER');
+    expect(h).toContain('legal-blocker');
+    expect(h).toContain('legal-draft-banner');
+    expect(h).toContain('href="https://amamus.github.io/amamus/impressum/"');
+    // footer legal links are wired on the legal pages too
+    expect(h).toContain(`href="${withBase('/impressum/')}"`);
+    expect(h).toContain(`href="${withBase('/datenschutz/')}"`);
+  });
+
+  it('dist/datenschutz/index.html exists, is German, has the draft banner and the right canonical', () => {
+    expect(existsSync('dist/datenschutz/index.html')).toBe(true);
+    const h = read('dist/datenschutz/index.html');
+    expect(h).toContain('<html lang="de"');
+    expect(h).toContain('legal-draft-banner');
+    expect(h).toContain('href="https://amamus.github.io/amamus/datenschutz/"');
+    // factual statements true of this site
+    expect(h).toContain('GitHub Pages');
+  });
+
+  it('impressum renders one PUBLICATION BLOCKER per missing required field', () => {
+    const h = read('dist/impressum/index.html');
+    const blockers = h.match(/PUBLICATION BLOCKER:/g) ?? [];
+    // Name, Rechtsform, Anschrift, Vertretungsberechtigte Person, Kontakt,
+    // Registergericht, Registernummer, USt-IdNr., Verantwortlich nach § 18 Abs. 2 MStV
+    expect(blockers.length).toBe(9);
+  });
+
+  it('dist/404.html exists, is noindex and links back to /amamus/', () => {
+    expect(existsSync('dist/404.html')).toBe(true);
+    const h = read('dist/404.html');
+    expect(h).toContain('This page wandered off.');
+    expect(h).toContain('noindex,follow');
+    expect(h).toContain(`href="${withBase('/')}"`); // /amamus/
+  });
+
+  it('dist/sitemap.xml is valid XML with exactly the 3 absolute URLs', () => {
+    expect(existsSync('dist/sitemap.xml')).toBe(true);
+    const xml = read('dist/sitemap.xml');
+    expect(xml.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true);
+    expect(xml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+    expect(xml.trim().endsWith('</urlset>')).toBe(true);
+    const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    expect(locs.sort()).toEqual(
+      [
+        'https://amamus.github.io/amamus/',
+        'https://amamus.github.io/amamus/impressum/',
+        'https://amamus.github.io/amamus/datenschutz/',
+      ].sort()
+    );
+    expect(new Set(locs).size).toBe(3); // no duplicates
+    expect((xml.match(/<url>/g) ?? []).length).toBe(3);
+    for (const m of xml.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)) {
+      expect(m[1]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    }
+  });
+
+  it('dist/robots.txt contains the Sitemap line for the /amamus/ base', () => {
+    expect(existsSync('dist/robots.txt')).toBe(true);
+    const robots = read('dist/robots.txt');
+    expect(robots).toContain('User-agent: *');
+    expect(robots).toContain('Sitemap: https://amamus.github.io/amamus/sitemap.xml');
+  });
+});

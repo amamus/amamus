@@ -1,10 +1,10 @@
 /**
- * UI label dictionary. English launch (lang="en"); to add German later, add a
- * 'de' entry to `dict` and widen `Lang` — no new dependencies needed.
- * All user-facing strings live here so components stay language-agnostic.
+ * UI label dictionary. English ('en') for the launch pages, German ('de') for
+ * the legal pages (Task 9). All user-facing strings live here so components
+ * stay language-agnostic.
  */
 
-export type Lang = 'en';
+export type Lang = 'en' | 'de';
 
 export interface Dict {
   nav: {
@@ -15,6 +15,11 @@ export interface Dict {
   };
   skipLink: string;
   navLabel: string;
+  footer: {
+    ariaLabel: string;
+    impressum: string;
+    datenschutz: string;
+  };
 }
 
 export const dict: Record<Lang, Dict> = {
@@ -27,6 +32,26 @@ export const dict: Record<Lang, Dict> = {
     },
     skipLink: 'Skip to main content',
     navLabel: 'Main',
+    footer: {
+      ariaLabel: 'Footer',
+      impressum: 'Impressum',
+      datenschutz: 'Datenschutz',
+    },
+  },
+  de: {
+    nav: {
+      about: 'Über uns',
+      whatWeDo: 'Was wir tun',
+      philosophy: 'Philosophie',
+      contact: 'Kontakt',
+    },
+    skipLink: 'Zum Hauptinhalt springen',
+    navLabel: 'Hauptnavigation',
+    footer: {
+      ariaLabel: 'Fußzeile',
+      impressum: 'Impressum',
+      datenschutz: 'Datenschutz',
+    },
   },
 };
 

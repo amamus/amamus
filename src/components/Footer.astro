@@ -36,7 +36,7 @@ const year = new Date().getFullYear();
 <footer class="site-footer on-dark">
   <div class="container footer-inner">
     <Logo variant="stacked" reversed />
-    <nav class="footer-nav" aria-label="Footer">
+    <nav class="footer-nav" aria-label={t('en', 'footer.ariaLabel')}>
       <ul>
         {
           NAV_ITEMS.map((item) => (
@@ -48,8 +48,8 @@ const year = new Date().getFullYear();
       </ul>
     </nav>
     <ul class="legal-links">
-      <li><a href={withBase('/impressum/')}>Impressum</a></li>
-      <li><a href={withBase('/datenschutz/')}>Datenschutz</a></li>
+      <li><a href={withBase('/impressum/')}>{t('en', 'footer.impressum')}</a></li>
+      <li><a href={withBase('/datenschutz/')}>{t('en', 'footer.datenschutz')}</a></li>
     </ul>
     <p class="copyright">© {year} {siteConfig.name} — {siteConfig.tagline}</p>
   </div>

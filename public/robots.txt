@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://amamus.github.io/amamus/sitemap.xml
