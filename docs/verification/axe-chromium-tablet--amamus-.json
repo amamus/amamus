@@ -13,7 +13,7 @@
     "orientationAngle": 0,
     "orientationType": "landscape-primary"
   },
-  "timestamp": "2026-11-22T15:05:10.411Z",
+  "timestamp": "2026-11-22T18:33:46.017Z",
   "url": "http://localhost:4321/amamus/",
   "toolOptions": {
     "runOnly": {
@@ -1464,24 +1464,6 @@
           "target": [
             "svg[aria-labelledby=\"snail-title\"]"
           ]
-        },
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "deprecatedrole",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "minor",
-              "message": "ARIA role is not deprecated"
-            }
-          ],
-          "impact": null,
-          "html": "<p class=\"contact-placeholder\" role=\"note\" data-astro-cid-he3spzz3=\"\">Our contact address is being set up and will be published here.</p>",
-          "target": [
-            ".contact-placeholder"
-          ]
         }
       ]
     },
@@ -2062,24 +2044,6 @@
           "target": [
             "svg[aria-labelledby=\"snail-title\"]"
           ]
-        },
-        {
-          "any": [
-            {
-              "id": "aria-required-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "All required ARIA attributes are present"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<p class=\"contact-placeholder\" role=\"note\" data-astro-cid-he3spzz3=\"\">Our contact address is being set up and will be published here.</p>",
-          "target": [
-            ".contact-placeholder"
-          ]
         }
       ]
     },
@@ -2129,38 +2093,6 @@
           "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1536 1024\" role=\"img\" aria-labelledby=\"snail-title\">",
           "target": [
             "svg[aria-labelledby=\"snail-title\"]"
-          ]
-        },
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "invalidrole",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA role is valid"
-            },
-            {
-              "id": "abstractrole",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Abstract roles are not used"
-            },
-            {
-              "id": "unsupportedrole",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA role is supported"
-            }
-          ],
-          "impact": null,
-          "html": "<p class=\"contact-placeholder\" role=\"note\" data-astro-cid-he3spzz3=\"\">Our contact address is being set up and will be published here.</p>",
-          "target": [
-            ".contact-placeholder"
           ]
         }
       ]
@@ -3935,24 +3867,24 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#4f5f88",
-                "bgColor": "#fff7e6",
-                "contrastRatio": 5.92,
+                "fgColor": "#ffffff",
+                "bgColor": "#0a2463",
+                "contrastRatio": 14.52,
                 "fontSize": "12.9pt (17.1948px)",
-                "fontWeight": "normal",
+                "fontWeight": "bold",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.92"
+              "message": "Element has sufficient color contrast of 14.52"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"contact-placeholder\" role=\"note\" data-astro-cid-he3spzz3=\"\">Our contact address is being set up and will be published here.</p>",
+          "html": "<a class=\"button\" href=\"mailto:postmaster@amamus.net\" data-astro-cid-he3spzz3=\"\">Write us — postmaster@amamus.net</a>",
           "target": [
-            ".contact-placeholder"
+            ".button"
           ]
         },
         {
@@ -4726,6 +4658,32 @@
           "html": "<a class=\"cta cta-secondary\" href=\"#philosophy\" data-astro-cid-ge2uvauf=\"\">Our philosophy</a>",
           "target": [
             ".cta-secondary"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "focusable-no-name",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is not in tab order or has accessible text"
+            }
+          ],
+          "impact": null,
+          "html": "<a class=\"button\" href=\"mailto:postmaster@amamus.net\" data-astro-cid-he3spzz3=\"\">Write us — postmaster@amamus.net</a>",
+          "target": [
+            ".button"
           ]
         },
         {
@@ -5803,6 +5761,38 @@
           "html": "<a class=\"cta cta-secondary\" href=\"#philosophy\" data-astro-cid-ge2uvauf=\"\">Our philosophy</a>",
           "target": [
             ".cta-secondary"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 352.8,
+                "height": 54.8
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (352.8px by 54.8px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a class=\"button\" href=\"mailto:postmaster@amamus.net\" data-astro-cid-he3spzz3=\"\">Write us — postmaster@amamus.net</a>",
+          "target": [
+            ".button"
           ]
         },
         {

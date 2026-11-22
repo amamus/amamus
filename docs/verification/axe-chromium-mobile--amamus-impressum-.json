@@ -13,7 +13,7 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-11-22T15:05:11.485Z",
+  "timestamp": "2026-11-22T18:33:47.204Z",
   "url": "http://localhost:4321/amamus/impressum/",
   "toolOptions": {
     "runOnly": {
@@ -2229,48 +2229,23 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0a2463",
-                "bgColor": "#ffc400",
-                "contrastRatio": 9.09,
+                "bgColor": "#ffffff",
+                "contrastRatio": 14.52,
                 "fontSize": "12.2pt (16.218px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 9.09"
+              "message": "Element has sufficient color contrast of 14.52"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"legal-blocker\" data-astro-cid-jhpx3nw2=\"\"><strong data-astro-cid-jhpx3nw2=\"\">PUBLICATION BLOCKER:</strong> Anschrift has not been provided. This page is not legally complete and must not be treated as published legal information.</p>",
+          "html": "<dd data-astro-cid-wvx5tcg7=\"\">Weserstr. 44d, 10247 Berlin, Germany</dd>",
           "target": [
-            "dd:nth-child(6) > .legal-blocker"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#0a2463",
-                "bgColor": "#ffc400",
-                "contrastRatio": 9.09,
-                "fontSize": "12.2pt (16.218px)",
-                "fontWeight": "bold",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 9.09"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<strong data-astro-cid-jhpx3nw2=\"\">PUBLICATION BLOCKER:</strong>",
-          "target": [
-            "dd:nth-child(6) > .legal-blocker > strong"
+            "dd:nth-child(6)"
           ]
         },
         {
@@ -2379,48 +2354,23 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0a2463",
-                "bgColor": "#ffc400",
-                "contrastRatio": 9.09,
+                "bgColor": "#ffffff",
+                "contrastRatio": 14.52,
                 "fontSize": "12.2pt (16.218px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 9.09"
+              "message": "Element has sufficient color contrast of 14.52"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"legal-blocker\" data-astro-cid-jhpx3nw2=\"\"><strong data-astro-cid-jhpx3nw2=\"\">PUBLICATION BLOCKER:</strong> Kontakt has not been provided. This page is not legally complete and must not be treated as published legal information.</p>",
+          "html": "<dd data-astro-cid-wvx5tcg7=\"\">postmaster@amamus.net</dd>",
           "target": [
-            "dd:nth-child(10) > .legal-blocker"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#0a2463",
-                "bgColor": "#ffc400",
-                "contrastRatio": 9.09,
-                "fontSize": "12.2pt (16.218px)",
-                "fontWeight": "bold",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 9.09"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<strong data-astro-cid-jhpx3nw2=\"\">PUBLICATION BLOCKER:</strong>",
-          "target": [
-            "dd:nth-child(10) > .legal-blocker > strong"
+            "dd:nth-child(10)"
           ]
         },
         {
@@ -2718,7 +2668,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p data-astro-cid-wvx5tcg7=\"\">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV (früher § 55 Abs. 2 RStV): noch nicht benannt — PUBLICATION BLOCKER.</p>",
+          "html": "<p data-astro-cid-wvx5tcg7=\"\">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV (früher § 55 Abs. 2 RStV): die verantwortliche Person mit ladungsfähiger Anschrift ist oben angegeben.</p>",
           "target": [
             "section:nth-child(5) > p"
           ]
@@ -2754,48 +2704,23 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#0a2463",
-                "bgColor": "#ffc400",
-                "contrastRatio": 9.09,
+                "bgColor": "#ffffff",
+                "contrastRatio": 14.52,
                 "fontSize": "12.2pt (16.218px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 9.09"
+              "message": "Element has sufficient color contrast of 14.52"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"legal-blocker\" data-astro-cid-jhpx3nw2=\"\"><strong data-astro-cid-jhpx3nw2=\"\">PUBLICATION BLOCKER:</strong> Verantwortlich nach § 18 Abs. 2 MStV has not been provided. This page is not legally complete and must not be treated as published legal information.</p>",
+          "html": "<dd data-astro-cid-wvx5tcg7=\"\">David Walter, Weserstr. 44d, 10247 Berlin, Germany</dd>",
           "target": [
-            "section:nth-child(5) > dl > dd > .legal-blocker"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#0a2463",
-                "bgColor": "#ffc400",
-                "contrastRatio": 9.09,
-                "fontSize": "12.2pt (16.218px)",
-                "fontWeight": "bold",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 9.09"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<strong data-astro-cid-jhpx3nw2=\"\">PUBLICATION BLOCKER:</strong>",
-          "target": [
-            "section:nth-child(5) > dl > dd > .legal-blocker > strong"
+            "section:nth-child(5) > dl > dd"
           ]
         },
         {
@@ -3086,7 +3011,7 @@
             }
           ],
           "impact": null,
-          "html": "<dl class=\"legal-fields\" data-astro-cid-wvx5tcg7=\"\">",
+          "html": "<dl class=\"legal-fields\" data-astro-cid-wvx5tcg7=\"\"><dt data-astro-cid-wvx5tcg7=\"\">Verantwortlich nach § 18 Abs. 2 MStV</dt><dd data-astro-cid-wvx5tcg7=\"\">David Walter, Weserstr. 44d, 10247 Berlin, Germany</dd></dl>",
           "target": [
             "section:nth-child(5) > dl"
           ]
@@ -3212,7 +3137,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<dd data-astro-cid-wvx5tcg7=\"\"><p class=\"legal-blocker\" data-astro-cid-jhpx3nw2=\"\"><strong data-astro-cid-jhpx3nw2=\"\">PUBLICATION BLOCKER:</strong> Anschrift has not been provided. This page is not legally complete and must not be treated as published legal information.</p></dd>",
+          "html": "<dd data-astro-cid-wvx5tcg7=\"\">Weserstr. 44d, 10247 Berlin, Germany</dd>",
           "target": [
             "dd:nth-child(6)"
           ]
@@ -3284,7 +3209,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<dd data-astro-cid-wvx5tcg7=\"\"><p class=\"legal-blocker\" data-astro-cid-jhpx3nw2=\"\"><strong data-astro-cid-jhpx3nw2=\"\">PUBLICATION BLOCKER:</strong> Kontakt has not been provided. This page is not legally complete and must not be treated as published legal information.</p></dd>",
+          "html": "<dd data-astro-cid-wvx5tcg7=\"\">postmaster@amamus.net</dd>",
           "target": [
             "dd:nth-child(10)"
           ]
@@ -3428,7 +3353,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<dd data-astro-cid-wvx5tcg7=\"\">",
+          "html": "<dd data-astro-cid-wvx5tcg7=\"\">David Walter, Weserstr. 44d, 10247 Berlin, Germany</dd>",
           "target": [
             "section:nth-child(5) > dl > dd"
           ]

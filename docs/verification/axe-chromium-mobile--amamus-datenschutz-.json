@@ -13,7 +13,7 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-11-22T15:05:11.642Z",
+  "timestamp": "2026-11-22T18:33:47.381Z",
   "url": "http://localhost:4321/amamus/datenschutz/",
   "toolOptions": {
     "runOnly": {
@@ -2189,7 +2189,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p data-astro-cid-x4lnokx7=\"\">Diese Website bindet keine externen Dienste ein. insbesondere werden keine externen Schriften, Analyse-Dienste oder Werbenetzwerke geladen; die verwendeten Schriftarten werden lokal von dieser Website ausgeliefert.</p>",
+          "html": "<p data-astro-cid-x4lnokx7=\"\">Diese Website bindet keine externen Dienste ein. Insbesondere werden keine externen Schriften, Analyse-Dienste oder Werbenetzwerke geladen; die verwendeten Schriftarten werden lokal von dieser Website ausgeliefert.</p>",
           "target": [
             "section:nth-child(5) > p"
           ]
