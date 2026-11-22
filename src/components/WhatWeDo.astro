@@ -1,0 +1,134 @@
+---
+/**
+ * WhatWeDo — "What we do" section (warm/cream tone) with the three activity
+ * cards from src/content/home.ts, verbatim. Each card carries a small inline
+ * SVG glyph (40x40 viewBox, ~2.5rem rendered):
+ *   shell   = ring with an inner arc
+ *   rings   = two overlapping circle outlines
+ *   horizon = sun semicircle over a line
+ * Strokes are navy with a sun accent, applied via classes so only tokens are
+ * used (the style lint forbids raw hex in .astro files). Cards get data-reveal.
+ */
+import Section from './Section.astro';
+import { home } from '../content/home';
+
+const { whatWeDo } = home;
+---
+
+<Section id={whatWeDo.id} heading={whatWeDo.heading} tone="warm">
+  <p class="section-intro" data-reveal>{whatWeDo.intro}</p>
+  <ul class="cards">
+    {
+      whatWeDo.cards.map((card) => (
+        <li class="card" data-reveal>
+          <span class="glyph" aria-hidden="true">
+            {card.glyph === 'shell' && (
+              <svg viewBox="0 0 40 40" focusable="false">
+                <circle cx="20" cy="20" r="14" fill="none" class="g-stroke-navy" stroke-width="2.5" />
+                <path
+                  d="M 12.5 25 A 9.5 9.5 0 0 1 27.5 25"
+                  fill="none"
+                  class="g-stroke-sun"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+            )}
+            {card.glyph === 'rings' && (
+              <svg viewBox="0 0 40 40" focusable="false">
+                <circle cx="15" cy="20" r="10" fill="none" class="g-stroke-navy" stroke-width="2.5" />
+                <circle cx="25" cy="20" r="10" fill="none" class="g-stroke-navy" stroke-width="2.5" />
+                <circle cx="20" cy="20" r="2.5" class="g-fill-sun" />
+              </svg>
+            )}
+            {card.glyph === 'horizon' && (
+              <svg viewBox="0 0 40 40" focusable="false">
+                <path
+                  d="M 10 25 A 10 10 0 0 1 30 25"
+                  fill="none"
+                  class="g-stroke-sun"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                />
+                <line x1="6" y1="25" x2="34" y2="25" class="g-stroke-navy" stroke-width="2.5" stroke-linecap="round" />
+                <line x1="20" y1="7" x2="20" y2="11" class="g-stroke-navy" stroke-width="2.5" stroke-linecap="round" />
+                <line x1="10.5" y1="12.5" x2="13.3" y2="15.3" class="g-stroke-navy" stroke-width="2.5" stroke-linecap="round" />
+                <line x1="29.5" y1="12.5" x2="26.7" y2="15.3" class="g-stroke-navy" stroke-width="2.5" stroke-linecap="round" />
+              </svg>
+            )}
+          </span>
+          <h3 class="card-title">{card.title}</h3>
+          <p class="card-text">{card.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .section-intro {
+    max-width: 44ch;
+    margin: 0;
+    font-size: var(--step-1);
+    color: var(--color-ink-soft);
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--space-m);
+    margin: var(--space-l) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 48rem) {
+    .cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .card {
+    background: var(--color-surface);
+    border-radius: var(--radius-l);
+    padding: var(--space-m);
+    box-shadow: var(--shadow-m);
+  }
+
+  .glyph {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-bottom: var(--space-s);
+    background: var(--color-surface-cool);
+    border-radius: var(--radius-full);
+  }
+
+  .glyph svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .g-stroke-navy {
+    stroke: var(--color-navy);
+  }
+
+  .g-stroke-sun {
+    stroke: var(--color-sun);
+  }
+
+  .g-fill-sun {
+    fill: var(--color-sun);
+  }
+
+  .card-title {
+    margin-bottom: var(--space-2xs);
+    font-size: var(--step-1);
+    font-weight: 800;
+  }
+
+  .card-text {
+    margin: 0;
+    color: var(--color-ink-soft);
+  }
+</style>

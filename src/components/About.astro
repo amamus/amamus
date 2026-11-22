@@ -1,0 +1,32 @@
+---
+/**
+ * About — "About" section (default/white tone) with the paragraphs from
+ * src/content/home.ts, verbatim.
+ */
+import Section from './Section.astro';
+import { home } from '../content/home';
+
+const { about } = home;
+---
+
+<Section id={about.id} heading={about.heading} tone="default">
+  <div class="about-body" data-reveal>
+    {about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+</Section>
+
+<style>
+  .about-body {
+    max-width: 60ch;
+  }
+
+  .about-body p {
+    margin: 0 0 var(--space-s);
+    font-size: var(--step-1);
+    color: var(--color-ink-soft);
+  }
+
+  .about-body p:last-child {
+    margin-bottom: 0;
+  }
+</style>

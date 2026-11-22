@@ -1,0 +1,80 @@
+---
+/**
+ * Contact — "Contact" section (warm/cream tone), copy verbatim from
+ * src/content/home.ts. Behavior is config-gated on siteConfig.contact.email:
+ *   - email set  → a real mailto button ("Write us — {email}")
+ *   - email null → the PUBLICATION BLOCKER placeholder: a dashed-border
+ *     <p class="contact-placeholder" role="note"> — clearly non-working,
+ *     never a fake contact. No form, no broken mailto in this state.
+ */
+import Section from './Section.astro';
+import { home } from '../content/home';
+import { siteConfig } from '../config/site.config';
+
+const { contact } = home;
+const email = siteConfig.contact.email;
+---
+
+<Section id={contact.id} heading={contact.heading} tone="warm">
+  <div class="contact-body" data-reveal>
+    <p class="contact-text">{contact.text}</p>
+    {
+      email ? (
+        <a class="button" href={`mailto:${email}`}>
+          Write us — {email}
+        </a>
+      ) : (
+        <p class="contact-placeholder" role="note">
+          {contact.placeholder}
+        </p>
+      )
+    }
+  </div>
+</Section>
+
+<style>
+  .contact-body {
+    max-width: 44rem;
+  }
+
+  .contact-text {
+    margin: 0 0 var(--space-m);
+    font-size: var(--step-1);
+    color: var(--color-ink-soft);
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xs) var(--space-m);
+    border-radius: var(--radius-full);
+    background: var(--color-navy);
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--step-0);
+    text-decoration: none;
+  }
+
+  .button:hover {
+    background: color-mix(in srgb, var(--color-navy) 82%, var(--color-white));
+  }
+
+  /* On the navy button the default navy focus ring would be invisible. */
+  .button:focus-visible {
+    outline-color: var(--color-sun);
+  }
+
+  /* Publication-blocker state: dashed border marks this as deliberately
+     non-working — there is no contact channel behind it yet. */
+  .contact-placeholder {
+    display: inline-block;
+    margin: 0;
+    padding: var(--space-s) var(--space-m);
+    border: 2px dashed var(--color-ink-soft);
+    border-radius: var(--radius-m);
+    color: var(--color-ink-soft);
+    font-style: italic;
+  }
+</style>

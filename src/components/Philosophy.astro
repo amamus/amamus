@@ -1,0 +1,117 @@
+---
+/**
+ * Philosophy — "Our philosophy" section (cool/sky tone). Copy verbatim from
+ * src/content/home.ts: the big statement, the body paragraph, the snail note
+ * in a light panel with a small monochrome snail icon (currentColor = navy),
+ * and the 8 themes as a grid <ul> (bold label + text). Reveal-animated.
+ */
+import Section from './Section.astro';
+import { home } from '../content/home';
+import snailMono from '../assets/brand/snail-mono.svg?raw';
+
+const { philosophy } = home;
+---
+
+<Section id={philosophy.id} heading={philosophy.heading} tone="cool">
+  <div class="philosophy-lead" data-reveal>
+    <p class="statement">{philosophy.statement}</p>
+    <p class="body">{philosophy.body}</p>
+  </div>
+  <div class="snail-note" data-reveal>
+    <span class="snail-icon" aria-hidden="true" set:html={snailMono} />
+    <p>{philosophy.snailNote}</p>
+  </div>
+  <ul class="themes">
+    {
+      philosophy.themes.map((theme) => (
+        <li data-reveal>
+          <strong>{theme.label}</strong>
+          <p>{theme.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .philosophy-lead {
+    max-width: 44rem;
+  }
+
+  .statement {
+    margin: 0 0 var(--space-s);
+    font-family: var(--font-heading);
+    font-size: var(--step-3);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .body {
+    margin: 0;
+    font-size: var(--step-1);
+    color: var(--color-ink-soft);
+    max-width: 60ch;
+  }
+
+  .snail-note {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+    max-width: 44rem;
+    margin-top: var(--space-l);
+    padding: var(--space-m);
+    background: var(--color-surface);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-s);
+  }
+
+  .snail-note p {
+    margin: 0;
+    color: var(--color-ink-soft);
+  }
+
+  /* set:html content is not scoped — target the injected svg globally */
+  .snail-icon {
+    flex: none;
+    color: var(--color-navy);
+  }
+
+  .snail-icon :global(svg) {
+    width: 4.5rem;
+    height: auto;
+  }
+
+  .themes {
+    display: grid;
+    gap: var(--space-s);
+    margin: var(--space-l) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 48rem) {
+    .themes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .themes li {
+    padding: var(--space-s) var(--space-m);
+    background: var(--color-surface);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-s);
+  }
+
+  .themes strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: var(--step-0);
+  }
+
+  .themes p {
+    margin: var(--space-3xs) 0 0;
+    color: var(--color-ink-soft);
+  }
+</style>

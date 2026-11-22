@@ -1,0 +1,102 @@
+---
+/**
+ * Footer — navy band with the reversed stacked logo (snail-reversed.svg +
+ * wordmark, light-on-dark), the section anchor nav, the legal links
+ * (base-prefixed via withBase) and the copyright line with the current year
+ * and the tagline. All text is cream/white on navy (contrast >= 4.5:1); the
+ * .on-dark class switches the focus ring to the sun accent.
+ *
+ * Like Header, the `path` prop decides hash-only anchors (home) vs
+ * base-prefixed ones (any other page).
+ */
+import Logo from './Logo.astro';
+import { t } from '../config/i18n';
+import { withBase } from '../utils/paths';
+import { siteConfig } from '../config/site.config';
+
+interface Props {
+  /** Internal path of the rendering page ('/' for home). */
+  path: string;
+}
+
+const { path } = Astro.props;
+
+const NAV_ITEMS = [
+  { key: 'nav.about', hash: '#about' },
+  { key: 'nav.whatWeDo', hash: '#what-we-do' },
+  { key: 'nav.philosophy', hash: '#philosophy' },
+  { key: 'nav.contact', hash: '#contact' },
+] as const;
+
+const home = withBase('/');
+const hrefFor = (hash: string): string => (path === '/' ? hash : `${home}${hash}`);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer on-dark">
+  <div class="container footer-inner">
+    <Logo variant="stacked" reversed />
+    <nav class="footer-nav" aria-label="Footer">
+      <ul>
+        {
+          NAV_ITEMS.map((item) => (
+            <li>
+              <a href={hrefFor(item.hash)}>{t('en', item.key)}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <ul class="legal-links">
+      <li><a href={withBase('/impressum/')}>Impressum</a></li>
+      <li><a href={withBase('/datenschutz/')}>Datenschutz</a></li>
+    </ul>
+    <p class="copyright">© {year} {siteConfig.name} — {siteConfig.tagline}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-xl);
+    background: var(--color-navy);
+    color: var(--color-cream);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-m);
+    text-align: center;
+  }
+
+  /* Logo's own scoped rule colors the wordmark navy; on the navy footer the
+     reversed lockup needs cream text (contrast vs navy is well above 4.5:1). */
+  .site-footer :global(a.logo) {
+    color: var(--color-cream);
+  }
+
+  .site-footer ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2xs) var(--space-m);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer a {
+    color: var(--color-cream);
+  }
+
+  .site-footer a:hover {
+    text-decoration-color: var(--color-sun);
+  }
+
+  .copyright {
+    margin: 0;
+    font-size: var(--step--1);
+    color: var(--color-cream);
+  }
+</style>

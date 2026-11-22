@@ -26,7 +26,9 @@ test.describe('header navigation', () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/amamus/');
     for (const item of NAV) {
-      const link = page.getByRole('navigation').getByRole('link', { name: item.label });
+      // Scoped to the header nav ("Main"): the footer added a second nav
+      // landmark with the same links in Task 8.
+      const link = page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: item.label });
       await expect(link).toBeVisible();
       await expect(link).toHaveAttribute('href', new RegExp(`${item.hash}$`));
     }
@@ -57,9 +59,10 @@ test.describe('header navigation', () => {
     await page.keyboard.press('Enter');
     await expect(btn).toHaveAttribute('aria-expanded', 'true');
     await expect(page.locator('#mobile-nav')).toBeVisible();
-    // Section anchors arrive with Task 8 — here we only assert that
-    // activating a menu link closes the menu again.
-    await page.getByRole('link', { name: 'About' }).click();
+    // Section anchors landed with Task 8 — here we only assert that
+    // activating a menu link closes the menu again. Scoped to the header
+    // nav ("Main") because the footer nav repeats the same link names.
+    await page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'About' }).click();
     await expect(btn).toHaveAttribute('aria-expanded', 'false');
     await expect(page.locator('#mobile-nav')).toBeHidden();
   });

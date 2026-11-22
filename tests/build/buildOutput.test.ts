@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { CSP_POLICY } from '../../src/utils/seo';
 import { withBase } from '../../src/utils/paths';
 import { siteConfig } from '../../src/config/site.config';
+import { home } from '../../src/content/home';
 
 // Build-output tests are skipped on fresh clones (no dist/) so plain
 // `npm test` passes; run `npm run test:build` to build first, then test.
@@ -116,5 +117,64 @@ describe.skipIf(!distReady)('BaseLayout head', () => {
     // capture the host only (not the path) of every absolute src/href
     const refs = [...h.matchAll(/(?:src|href)="(https?:)?\/\/([^/"]+)"/g)].map((m) => m[2] ?? '');
     for (const host of refs) expect(host).toBe('amamus.github.io');
+  });
+});
+
+describe.skipIf(!distReady)('home sections (Task 8)', () => {
+  const html = () => readFileSync('dist/index.html', 'utf8');
+  // Astro HTML-escapes text content (& → &amp; etc.), so compare escaped copy.
+  const esc = (s: string): string =>
+    s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  it('renders the four section anchors inside <main>', () => {
+    const h = html();
+    const main = h.slice(h.indexOf('<main'), h.indexOf('</main>'));
+    for (const id of ['what-we-do', 'philosophy', 'about', 'contact']) {
+      expect(main).toContain(`id="${id}"`);
+    }
+  });
+
+  it('renders the WhatWeDo intro and all three card titles verbatim', () => {
+    const h = html();
+    expect(h).toContain(esc(home.whatWeDo.intro));
+    expect(home.whatWeDo.cards).toHaveLength(3);
+    for (const card of home.whatWeDo.cards) {
+      expect(h).toContain(esc(card.title));
+      expect(h).toContain(esc(card.text));
+    }
+  });
+
+  it('renders the philosophy statement, snail note and all 8 theme labels + texts', () => {
+    const h = html();
+    expect(h).toContain(esc(home.philosophy.statement));
+    expect(h).toContain(esc(home.philosophy.body));
+    expect(h).toContain(esc(home.philosophy.snailNote));
+    expect(home.philosophy.themes).toHaveLength(8);
+    for (const theme of home.philosophy.themes) {
+      expect(h).toContain(esc(theme.label));
+      expect(h).toContain(esc(theme.text));
+    }
+  });
+
+  it('renders all about paragraphs verbatim', () => {
+    const h = html();
+    for (const p of home.about.paragraphs) expect(h).toContain(esc(p));
+  });
+
+  it('renders the contact placeholder note (email null) and no mailto anywhere', () => {
+    const h = html();
+    expect(siteConfig.contact.email).toBeNull(); // publication blocker state under test
+    expect(h).toContain('contact-placeholder');
+    expect(h).toContain(esc(home.contact.placeholder));
+    expect(h).not.toContain('mailto:');
+  });
+
+  it('renders the footer with base-prefixed legal links and the copyright line', () => {
+    const h = html();
+    expect(h).toContain('<footer');
+    expect(h).toContain(`href="${withBase('/impressum/')}"`); // /amamus/impressum/
+    expect(h).toContain(`href="${withBase('/datenschutz/')}"`); // /amamus/datenschutz/
+    expect(h).toContain(`© ${new Date().getFullYear()} ${siteConfig.name}`);
+    expect(h).toContain(siteConfig.tagline);
   });
 });
