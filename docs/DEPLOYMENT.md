@@ -25,10 +25,10 @@ No `gh-pages` branch or `GITHUB_TOKEN` secret setup is needed: the workflow uses
 
 `.github/workflows/deploy-pages.yml` runs on:
 
-- **push to `main`** touching any of: `src/**`, `public/**`, `scripts/**`, `docs/brand/**`, `astro.config.mjs`, `package.json`, `package-lock.json`, `.github/workflows/deploy-pages.yml`
+- **push to `main`** touching any of: `src/**`, `public/**`, `scripts/**`, `docs/brand/**`, `astro.config.mjs`, `package.json`, `package-lock.json`, `tsconfig.json`, `eslint.config.mjs`, `vitest.config.ts`, `playwright.config.ts`, `tests/**`, `.github/workflows/deploy-pages.yml`
 - **manual `workflow_dispatch`** (Actions tab → "Deploy to GitHub Pages" → "Run workflow")
 
-The workflow's `build` job (ubuntu-latest, Node 26) runs `npm ci` → `npm run check` → `npm run lint` → `npm test` → `npm run build`, then `actions/configure-pages@v5` and `actions/upload-pages-artifact@v3` with `path: ./dist`. The `deploy` job then publishes the artifact with `actions/deploy-pages@v4` into the `github-pages` environment. Expect the first deploy to take a few minutes; watch the **Actions** tab for progress and the deployed URL.
+The workflow's `build` job (ubuntu-latest, Node 26) runs `npm ci` → `npm run check` → `npm run lint` → `npm run build` → `npm test` (build first, so the build-output tests run), then `actions/configure-pages@v5` and `actions/upload-pages-artifact@v3` with `path: ./dist`. The `deploy` job then publishes the artifact with `actions/deploy-pages@v4` into the `github-pages` environment. Expect the first deploy to take a few minutes; watch the **Actions** tab for progress and the deployed URL.
 
 Pull requests and pushes to non-`main` branches run `.github/workflows/ci.yml` instead: `npm run check`, `npm run lint`, `npm run lint:workflows`, `npm run build`, `npm test`, `npm run check:links`, then an e2e job (`npx playwright install --with-deps chromium`, `npm run test:e2e`, `npm run audit:a11y`). CI never deploys.
 
