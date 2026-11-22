@@ -222,3 +222,7 @@ Gate re-run after the change (real outputs):
 - `npm run audit:a11y` — 12/12 passed, axe WCAG 2.2 AA violations=0 on 4 routes × 3 viewports
 - `npm run audit:lighthouse` — 100/100/96/100 on all 3 routes (reports `lighthouse-2026-11-22T18-33-48-121Z-*`)
 - dist assertions: `mailto:postmaster@amamus.net` present in `dist/index.html`, zero `contact-placeholder`; `dist/impressum/index.html` contains exactly 6 `PUBLICATION BLOCKER:` markers, the address twice (Anschrift + § 18), `David Walter` once
+
+## Addendum 2 — Pages source switched to GitHub Actions (owner action, 2026-11-22)
+
+`GET repos/amamus/amamus/pages` now returns `build_type: "workflow"` (was `"legacy"`) — the repo owner completed the one-time Settings → Pages → Source = GitHub Actions step. Publication blocker 3 is resolved; `deploy-pages.yml` will publish on merge to `main`.

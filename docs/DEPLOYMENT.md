@@ -6,9 +6,9 @@ The **amamus iocum** website is a fully static Astro build (`output: 'static'`, 
 - Workflow: [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml)
 - CI on pull requests: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml)
 
-## One-time setup: enable Pages with the Actions source
+## One-time setup: enable Pages with the Actions source — ✅ DONE 2026-11-22
 
-GitHub Pages must be configured to build from **GitHub Actions** (not from a branch). This is a one-time step that requires **repository admin** rights:
+GitHub Pages must be configured to build from **GitHub Actions** (not from a branch). This one-time step requires **repository admin** rights and was completed by the repository owner on 2026-11-22 (verified via API: `GET repos/amamus/amamus/pages` → `build_type: "workflow"`). If it is ever needed again:
 
 1. Open **Settings → Pages → Build and deployment → Source** and select **GitHub Actions**.
 2. Equivalent CLI command an admin (with a write-capable token) can run:
@@ -17,7 +17,7 @@ GitHub Pages must be configured to build from **GitHub Actions** (not from a bra
    gh api -X PUT repos/amamus/amamus/pages -f build_type=workflow
    ```
 
-   Note: the token available in the development environment for this project is **pull-only**; with it, the command above returns `404` ("Must have admin rights to Repository"). That is expected — an admin must perform this step once, either via the Settings UI or with a write-capable token.
+   Note: the token available in the development environment for this project is **pull-only**; with it, the command above returns `404` ("Must have admin rights to Repository"). That is expected — an admin must perform this step once, either via the Settings UI or with a write-capable token. (Already done for amamus/amamus.)
 
 No `gh-pages` branch or `GITHUB_TOKEN` secret setup is needed: the workflow uses the automatic `GITHUB_TOKEN` with least-privilege permissions (`contents: read`, `pages: write`, `id-token: write`).
 
