@@ -1,0 +1,8 @@
+/* Design tokens — the ONLY place raw brand hex values may appear. */
+:root {
+  --color-navy: #0A2463;
+  --color-sun: #FFC400;
+  --color-cream: #FFF7E6;
+  --color-sky: #E8F2FF;
+  --color-white: #FFFFFF;
+}
