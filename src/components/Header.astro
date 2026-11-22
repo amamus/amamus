@@ -1,0 +1,244 @@
+---
+/**
+ * Header — sticky site header with the logo and the responsive main nav.
+ *
+ * Desktop (>= 48rem): inline <ul> of section anchors inside
+ * <nav aria-label="Main">; the menu button is display:none.
+ * Mobile (< 48rem): the inline list is hidden and a real <button> toggles
+ * the #mobile-nav panel (hidden attribute + aria-expanded kept in sync).
+ *
+ * The behaviour lives in a hoisted module <script>: Astro bundles it to an
+ * external file, so it satisfies the strict CSP (script-src 'self').
+ *
+ * Nav labels come from the i18n dict; anchors are hash-only on the home page
+ * (the sections themselves land with Task 8) and prefixed with the base on
+ * any other page so they still point at the home sections.
+ */
+import Logo from './Logo.astro';
+import { t } from '../config/i18n';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  /** Internal path of the rendering page ('/' for home) — decides hash-only vs base-prefixed anchor hrefs. */
+  path: string;
+}
+
+const { path } = Astro.props;
+
+const NAV_ITEMS = [
+  { key: 'nav.about', hash: '#about' },
+  { key: 'nav.whatWeDo', hash: '#what-we-do' },
+  { key: 'nav.philosophy', hash: '#philosophy' },
+  { key: 'nav.contact', hash: '#contact' },
+] as const;
+
+const home = withBase('/');
+const hrefFor = (hash: string): string => (path === '/' ? hash : `${home}${hash}`);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <Logo variant="horizontal" />
+    <nav class="site-nav" aria-label={t('en', 'navLabel')}>
+      <ul class="nav-list nav-desktop">
+        {NAV_ITEMS.map((item) => (
+          <li>
+            <a href={hrefFor(item.hash)}>{t('en', item.key)}</a>
+          </li>
+        ))}
+      </ul>
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Open menu"
+      >
+        <span class="nav-toggle-bars" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <div id="mobile-nav" class="mobile-nav" hidden>
+        <ul class="nav-list nav-mobile">
+          {NAV_ITEMS.map((item) => (
+            <li>
+              <a href={hrefFor(item.hash)}>{t('en', item.key)}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Responsive nav behaviour. Runs as a bundled external module (deferred),
+  // so the DOM is ready when it executes. Breakpoint matches the CSS: 48rem.
+  const BREAKPOINT = '(min-width: 48rem)';
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const menu = document.getElementById('mobile-nav');
+
+  if (toggle && menu) {
+    const mq = window.matchMedia(BREAKPOINT);
+
+    const setOpen = (open: boolean): void => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menu.hidden = !open;
+    };
+
+    const isOpen = (): boolean => toggle.getAttribute('aria-expanded') === 'true';
+
+    toggle.addEventListener('click', () => setOpen(!isOpen()));
+
+    // Activating any link inside the mobile menu closes it again.
+    menu.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('a')) setOpen(false);
+    });
+
+    // Escape closes the menu and returns focus to the toggle button.
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && isOpen()) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    // Crossing the breakpoint upwards (resize/rotate to desktop) closes the menu.
+    mq.addEventListener('change', (event) => {
+      if (event.matches) setOpen(false);
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--color-surface) 85%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    min-height: var(--header-height);
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-list a {
+    display: inline-block;
+    padding: var(--space-2xs) var(--space-xs);
+    border-radius: var(--radius-m);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .nav-list a:hover {
+    background: var(--color-surface-cool);
+  }
+
+  /* Mobile-first: inline list hidden, toggle button shown. */
+  .nav-desktop {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 2px solid var(--color-ink);
+    border-radius: var(--radius-m);
+    background: transparent;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .nav-toggle:hover {
+    background: var(--color-surface-cool);
+  }
+
+  .nav-toggle-bars {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .nav-toggle-bars > span {
+    display: block;
+    width: 1.25rem;
+    height: 0.15rem;
+    border-radius: var(--radius-full);
+    background: currentColor;
+  }
+
+  /* Mobile dropdown panel, anchored to the sticky header. */
+  .mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
+    box-shadow: var(--shadow-m);
+  }
+
+  /* author display rules must never defeat the hidden attribute */
+  .mobile-nav[hidden] {
+    display: none;
+  }
+
+  .nav-mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3xs);
+    padding: var(--space-xs);
+  }
+
+  .nav-mobile a {
+    display: block;
+    padding: var(--space-2xs) var(--space-xs);
+    font-size: var(--step-0);
+  }
+
+  /* Desktop: inline list shown, toggle and panel hidden. */
+  @media (min-width: 48rem) {
+    .nav-desktop {
+      display: flex;
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    .mobile-nav {
+      display: none;
+    }
+  }
+</style>
