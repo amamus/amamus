@@ -8,9 +8,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { withBase } from '../utils/paths';
-import snailSvg from '../assets/brand/snail.svg?raw';
+import snailRaw from '../assets/brand/snail.svg?raw';
 
 const path = '/404/';
+// The wrapper is aria-hidden, so the SVG's decorative <title>/aria-labelledby
+// are stripped — the header logo injects the same master on this page and
+// the id must stay unique (axe duplicate-id-aria).
+const snailSvg = snailRaw
+  .replace(/ aria-labelledby="[^"]*"/, '')
+  .replace(/<title[^>]*>[\s\S]*?<\/title>/, '');
 ---
 
 <BaseLayout title="404" path={path} noIndex>

@@ -19,7 +19,13 @@ interface Props {
 }
 
 const { variant = 'horizontal', reversed = false } = Astro.props;
-const mark = reversed ? snailReversed : snail;
+// The mark span is aria-hidden (the wrapping link carries the accessible
+// name), so the SVG's own <title>/aria-labelledby are stripped here: they
+// would otherwise duplicate the id when the snail master also appears in the
+// hero or 404 body on the same page (axe duplicate-id-aria).
+const mark = (reversed ? snailReversed : snail)
+  .replace(/ aria-labelledby="[^"]*"/, '')
+  .replace(/<title[^>]*>[\s\S]*?<\/title>/, '');
 ---
 
 <a class="logo" data-variant={variant} href={withBase('/')} aria-label="amamus iocum — home">
