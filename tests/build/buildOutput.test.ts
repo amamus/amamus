@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { parse } from 'yaml';
 import { join } from 'node:path';
 import { CSP_POLICY } from '../../src/utils/seo';
 import { withBase } from '../../src/utils/paths';
@@ -161,12 +162,19 @@ describe.skipIf(!distReady)('home sections (Task 8)', () => {
     for (const p of home.about.paragraphs) expect(h).toContain(esc(p));
   });
 
-  it('renders the contact placeholder note (email null) and no mailto anywhere', () => {
+  it('renders the contact section per siteConfig.contact.email', () => {
     const h = html();
-    expect(siteConfig.contact.email).toBeNull(); // publication blocker state under test
-    expect(h).toContain('contact-placeholder');
-    expect(h).toContain(esc(home.contact.placeholder));
-    expect(h).not.toContain('mailto:');
+    if (siteConfig.contact.email) {
+      // configured state: exactly one working mailto button, no placeholder
+      expect(h).toContain(`href="mailto:${siteConfig.contact.email}"`);
+      expect(h).toContain(siteConfig.contact.email);
+      expect(h).not.toContain('contact-placeholder');
+    } else {
+      // publication blocker state: placeholder note, no mailto anywhere
+      expect(h).toContain('contact-placeholder');
+      expect(h).toContain(esc(home.contact.placeholder));
+      expect(h).not.toContain('mailto:');
+    }
   });
 
   it('renders the footer with base-prefixed legal links and the copyright line', () => {
@@ -208,9 +216,15 @@ describe.skipIf(!distReady)('legal pages, 404, robots, sitemap (Task 9)', () => 
   it('impressum renders one PUBLICATION BLOCKER per missing required field', () => {
     const h = read('dist/impressum/index.html');
     const blockers = h.match(/PUBLICATION BLOCKER:/g) ?? [];
-    // Name, Rechtsform, Anschrift, Vertretungsberechtigte Person, Kontakt,
-    // Registergericht, Registernummer, USt-IdNr., Verantwortlich nach § 18 Abs. 2 MStV
-    expect(blockers.length).toBe(9);
+    // Expected count is derived from the frontmatter (null fields), so it
+    // stays in sync as the owner fills in verified data.
+    const raw = readFileSync('src/content/legal/impressum.md', 'utf8');
+    const fm = parse(raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? '');
+    const missing = (fm.sections as { fields: { value: unknown }[] }[])
+      .flatMap((s) => s.fields)
+      .filter((f) => f.value === null).length;
+    expect(blockers.length).toBe(missing);
+    expect(missing).toBeGreaterThan(0); // page is still a draft until all fields are filled
   });
 
   it('dist/404.html exists, is noindex and links back to /amamus/', () => {

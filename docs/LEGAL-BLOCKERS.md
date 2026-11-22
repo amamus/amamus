@@ -4,19 +4,20 @@
 
 Mechanism: `src/utils/legal.ts` (`legalField()`) classifies every required field; `null`, `undefined`, or whitespace-only counts as missing. The pages `src/pages/impressum.astro` and `src/pages/datenschutz.astro` render a `<LegalBlocker />` for each missing field.
 
-## Blocker 1 — Contact email (home page)
+## Blocker 1 — Contact email (home page) — RESOLVED 2026-11-22
 
-- **Where:** `contact.email` in [`src/config/site.config.ts`](../src/config/site.config.ts) — currently `null`.
-- **Effect:** the Contact section (`src/components/Contact.astro`) renders a dashed-border, clearly non-working placeholder ("Our contact address is being set up and will be published here.") instead of a contact address. There is no working `mailto:` on the site in this state — do not present the placeholder as a working contact.
-- **Fix:** set `contact.email` to a verified address in `src/config/site.config.ts`. The Contact section then automatically renders a working `mailto:` button. `src/utils/validateConfig.ts` validates the format (must be a valid email or `null`).
+- `contact.email` in [`src/config/site.config.ts`](../src/config/site.config.ts) is now set to the owner-provided, verified address **`postmaster@amamus.net`**. The Contact section (`src/components/Contact.astro`) renders a working `mailto:postmaster@amamus.net` button; the placeholder state only appears if the value is set back to `null` (covered by `tests/e2e/contact.spec.ts` and `tests/build/buildOutput.test.ts`, which branch on the configured value). `src/utils/validateConfig.ts` validates the format (must be a valid email or `null`).
 
-## Blocker 2 — Impressum: all required fields missing
+## Blocker 2 — Impressum: 6 of 9 required fields still missing (PARTIALLY RESOLVED 2026-11-22)
 
-- **Where:** frontmatter of [`src/content/legal/impressum.md`](../src/content/legal/impressum.md) — every field below has `value: null` and renders as a `PUBLICATION BLOCKER` marker on `/amamus/impressum/`:
-  - Section *Angaben gemäß § 5 TMG*: **Name**, **Rechtsform**, **Anschrift**, **Vertretungsberechtigte Person**, **Kontakt**, **Registergericht**, **Registernummer**
+- **Where:** frontmatter of [`src/content/legal/impressum.md`](../src/content/legal/impressum.md). Filled with owner-provided data on 2026-11-22:
+  - **Anschrift** = `Weserstr. 44d, 10247 Berlin, Germany`
+  - **Kontakt** = `postmaster@amamus.net` (kept in sync with `contact.email` by test)
+  - **Verantwortlich nach § 18 Abs. 2 MStV** = `David Walter, Weserstr. 44d, 10247 Berlin, Germany`
+- Still `value: null` and rendering as a `PUBLICATION BLOCKER` marker on `/amamus/impressum/` (the owner completes these personally):
+  - Section *Angaben gemäß § 5 TMG*: **Name**, **Rechtsform**, **Vertretungsberechtigte Person**, **Registergericht**, **Registernummer**
   - Section *Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG*: **USt-IdNr.**
-  - Section *Verantwortlich für den Inhalt*: **Verantwortlich nach § 18 Abs. 2 MStV**
-- **Fix:** replace each `value: null` with the verified, actual data in the frontmatter of `src/content/legal/impressum.md`. Once the page is complete and reviewed, set `legal.impressumPublished: true` in `src/config/site.config.ts`.
+- **Fix:** replace each remaining `value: null` with the verified, actual data in the frontmatter of `src/content/legal/impressum.md`. Once the page is complete and reviewed, set `legal.impressumPublished: true` in `src/config/site.config.ts`. `tests/unit/legalContent.test.ts` pins the provided values and enforces that all other fields stay `null` (nothing may be invented); `tests/build/buildOutput.test.ts` asserts the marker count equals the number of null fields.
 
 ## Blocker 3 — Datenschutzerklärung: draft pending qualified legal review
 
@@ -28,4 +29,4 @@ Mechanism: `src/utils/legal.ts` (`legalField()`) classifies every required field
 
 ## Current state
 
-`src/config/site.config.ts` currently sets `contact.email: null`, `legal.impressumPublished: false`, and `legal.privacyPublished: false`. The pages `/amamus/impressum/` and `/amamus/datenschutz/` are reachable but show the draft banner and blocker markers — that is deliberate and must remain so until the real data is in place.
+`src/config/site.config.ts` sets `contact.email: 'postmaster@amamus.net'`, `legal.impressumPublished: false`, and `legal.privacyPublished: false`. The pages `/amamus/impressum/` and `/amamus/datenschutz/` are reachable but show the draft banner, and the Impressum still shows 6 blocker markers — that is deliberate and must remain so until the remaining real data is in place.

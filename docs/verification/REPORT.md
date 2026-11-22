@@ -208,3 +208,17 @@ Files under `docs/verification/screenshots/` plus `docs/verification/logo-compar
 ## Could not run
 
 **Nothing.** All 11 gate commands in the task ran to completion in this environment. Note: `npm ci` (mentioned in the original task-13 brief) was not part of this gate's command list; `node_modules` was already installed from `package-lock.json` and every command ran against it successfully.
+
+---
+
+## Addendum 2026-11-22 (later same day) — owner-provided contact/legal data applied
+
+Change: `contact.email` set to `postmaster@amamus.net`; impressum frontmatter filled with owner-provided data (Anschrift `Weserstr. 44d, 10247 Berlin, Germany`, Kontakt `postmaster@amamus.net`, Verantwortlich nach § 18 Abs. 2 MStV `David Walter, Weserstr. 44d, 10247 Berlin, Germany`). Tests updated first (red: 1 failed) then content (green). Remaining null impressum fields: 6 (Name, Rechtsform, Vertretungsberechtigte Person, Registergericht, Registernummer, USt-IdNr.) — owner completes personally.
+
+Gate re-run after the change (real outputs):
+- `npm run check` 0 errors; `npm run lint` clean; `npm run build` 4 pages
+- `npm test` — 73/73 passed (10 files); `npm run check:links` OK
+- `npm run test:e2e` — 78/78 passed (3 projects, 23.7s); contact spec now asserts the working `mailto:postmaster@amamus.net` button
+- `npm run audit:a11y` — 12/12 passed, axe WCAG 2.2 AA violations=0 on 4 routes × 3 viewports
+- `npm run audit:lighthouse` — 100/100/96/100 on all 3 routes (reports `lighthouse-2026-11-22T18-33-48-121Z-*`)
+- dist assertions: `mailto:postmaster@amamus.net` present in `dist/index.html`, zero `contact-placeholder`; `dist/impressum/index.html` contains exactly 6 `PUBLICATION BLOCKER:` markers, the address twice (Anschrift + § 18), `David Walter` once

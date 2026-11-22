@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { parse } from 'yaml';
+import { siteConfig } from '../../src/config/site.config';
 
 /**
  * Task 9 — legal content contract.
@@ -11,9 +12,10 @@ import { parse } from 'yaml';
  * BLOCKER markers, lang="de", canonicals) is covered by
  * tests/build/buildOutput.test.ts.
  *
- * Hard rule: NEVER invent legal data. Every legally required Impressum field
- * must carry `value: null` in the frontmatter so the build renders a visible
- * PUBLICATION BLOCKER instead of fabricated data.
+ * Hard rule: NEVER invent legal data. Legally required Impressum fields are
+ * either filled with owner-provided, verified values (see
+ * PROVIDED_IMPRESSUM_FIELDS) or carry `value: null` so the build renders a
+ * visible PUBLICATION BLOCKER instead of fabricated data.
  */
 
 interface LegalFrontmatter {
@@ -38,7 +40,9 @@ function allFields(data: LegalFrontmatter): { label: string; value: string | nul
 }
 
 // Every field legally required in an Impressum (§ 5 TMG, § 27a UStG,
-// § 18 Abs. 2 MStV). All of them must be present with value: null.
+// § 18 Abs. 2 MStV). All of them must be present; any field not listed in
+// PROVIDED_IMPRESSUM_FIELDS must carry value: null (rendered as a visible
+// PUBLICATION BLOCKER) until the owner supplies verified data.
 const REQUIRED_IMPRESSUM_LABELS = [
   'Name',
   'Rechtsform',
@@ -50,6 +54,15 @@ const REQUIRED_IMPRESSUM_LABELS = [
   'USt-IdNr.',
   'Verantwortlich nach § 18 Abs. 2 MStV',
 ] as const;
+
+// Fields filled with owner-provided data on 2026-11-22 (contact email,
+// address, and the § 18 Abs. 2 MStV responsible person with address).
+// Exact expected values — the test fails if anyone edits them silently.
+const PROVIDED_IMPRESSUM_FIELDS: Record<string, string> = {
+  Anschrift: 'Weserstr. 44d, 10247 Berlin, Germany',
+  Kontakt: 'postmaster@amamus.net',
+  'Verantwortlich nach § 18 Abs. 2 MStV': 'David Walter, Weserstr. 44d, 10247 Berlin, Germany',
+};
 
 describe('src/content/legal/impressum.md', () => {
   const { raw, data } = readLegal('impressum');
@@ -71,16 +84,24 @@ describe('src/content/legal/impressum.md', () => {
     expect(raw).toContain('§ 18 Abs. 2 MStV');
   });
 
-  it.each(REQUIRED_IMPRESSUM_LABELS)('required field "%s" is present with value: null', (label) => {
+  it.each(REQUIRED_IMPRESSUM_LABELS)('required field "%s" is present', (label) => {
     const field = allFields(data).find((f) => f.label === label);
     expect(field, `label "${label}" missing from impressum frontmatter`).toBeDefined();
-    expect(field?.value).toBeNull();
   });
 
-  it('has NO invented legal data: every field value is null', () => {
+  it('provided fields hold exactly the owner-supplied values; every other field stays null (no invented data)', () => {
     for (const field of allFields(data)) {
-      expect(field.value, `field "${field.label}" must stay null until real data exists`).toBeNull();
+      if (field.label in PROVIDED_IMPRESSUM_FIELDS) {
+        expect(field.value, `field "${field.label}" was changed`).toBe(PROVIDED_IMPRESSUM_FIELDS[field.label]);
+      } else {
+        expect(field.value, `field "${field.label}" must stay null until real data exists`).toBeNull();
+      }
     }
+  });
+
+  it('impressum Kontakt matches siteConfig.contact.email', () => {
+    const kontakt = allFields(data).find((f) => f.label === 'Kontakt');
+    expect(kontakt?.value).toBe(siteConfig.contact.email);
   });
 
   it('draftNotice states the page is a draft and not legally complete', () => {

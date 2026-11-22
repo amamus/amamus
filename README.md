@@ -56,7 +56,7 @@ All commands below exist in `package.json`:
 All site-wide settings live in [`src/config/site.config.ts`](src/config/site.config.ts) — the single source of truth:
 
 - `siteUrl` / `base` — canonical origin and base path. Currently `https://amamus.github.io` + `/amamus/`, so the site is published at <https://amamus.github.io/amamus/>. For a custom domain, set `siteUrl` to that domain (and `base` to `/` if the site is served from the domain root) — see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). `astro.config.mjs` mirrors `site`/`base` for the build.
-- `contact.email` — **publication blocker**: while it is `null`, the Contact section on the home page renders a clearly non-working placeholder instead of a contact address. Set a verified address before publishing — see [docs/LEGAL-BLOCKERS.md](docs/LEGAL-BLOCKERS.md).
+- `contact.email` — currently `postmaster@amamus.net` (owner-provided). While it is `null`, the Contact section on the home page renders a clearly non-working placeholder instead of a contact address — see [docs/LEGAL-BLOCKERS.md](docs/LEGAL-BLOCKERS.md).
 - `legal.impressumPublished` / `legal.privacyPublished` — both currently `false`. The legal pages carry visible `PUBLICATION BLOCKER` markers until their required fields are filled in.
 
 The build itself is configured in `astro.config.mjs`: fully static output into `dist/`, stylesheets and assets never inlined (required for the strict CSP).
@@ -114,7 +114,7 @@ The site deploys automatically to GitHub Pages from `main` via [`.github/workflo
 
 ## Publication blockers
 
-The site is **not yet ready for publication**: the contact email and several legally required fields are still missing and render as visible `PUBLICATION BLOCKER` markers on the pages. Do not present the site as legally complete until these are resolved — [docs/LEGAL-BLOCKERS.md](docs/LEGAL-BLOCKERS.md) lists the exact missing fields and where to fill them in.
+The site is **not yet legally complete**: the contact email is configured (`postmaster@amamus.net`), but 6 legally required Impressum fields and the Datenschutzerklärung's legal-review sections are still open and render as visible `PUBLICATION BLOCKER` markers / draft banner. Do not present the site as legally complete until these are resolved — [docs/LEGAL-BLOCKERS.md](docs/LEGAL-BLOCKERS.md) lists the exact missing fields and where to fill them in.
 
 ## Privacy
 

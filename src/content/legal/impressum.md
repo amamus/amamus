@@ -10,11 +10,11 @@ sections:
       - label: 'Rechtsform'
         value: null
       - label: 'Anschrift'
-        value: null
+        value: 'Weserstr. 44d, 10247 Berlin, Germany'
       - label: 'Vertretungsberechtigte Person'
         value: null
       - label: 'Kontakt'
-        value: null
+        value: 'postmaster@amamus.net'
       - label: 'Registergericht'
         value: null
       - label: 'Registernummer'
@@ -27,6 +27,6 @@ sections:
   - heading: 'Verantwortlich für den Inhalt'
     fields:
       - label: 'Verantwortlich nach § 18 Abs. 2 MStV'
-        value: null
-    prose: 'Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV (früher § 55 Abs. 2 RStV): noch nicht benannt — PUBLICATION BLOCKER.'
+        value: 'David Walter, Weserstr. 44d, 10247 Berlin, Germany'
+    prose: 'Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV (früher § 55 Abs. 2 RStV): die verantwortliche Person mit ladungsfähiger Anschrift ist oben angegeben.'
 ---

@@ -1,23 +1,32 @@
 import { test, expect } from '@playwright/test';
+import { siteConfig } from '../../src/config/site.config';
 
 /**
- * Task 8 — contact section while siteConfig.contact.email is null (the
- * PUBLICATION BLOCKER state): the section must show the clearly non-working
- * placeholder note (role="note", dashed border) and must NOT contain any
- * mailto link — never a fake working contact.
+ * Task 8/13 — contact section contract, derived from siteConfig.contact.email:
+ *   - email set  → exactly one working mailto button, no placeholder note
+ *   - email null → PUBLICATION BLOCKER placeholder (role="note", dashed
+ *     border) and zero mailto links / forms — never a fake contact channel.
  */
-test('contact section shows the placeholder note and zero mailto links', async ({ page }) => {
+const email = siteConfig.contact.email;
+
+test(`contact section renders the configured state (email ${email ? 'set' : 'null'})`, async ({ page }) => {
   await page.goto('/amamus/');
   const contact = page.locator('#contact');
   await expect(contact).toBeVisible();
 
-  const note = contact.getByRole('note');
-  await expect(note).toBeVisible();
-  await expect(note).toHaveText('Our contact address is being set up and will be published here.');
-  await expect(note).toHaveClass(/contact-placeholder/);
-
-  // No working (or broken) contact channel may be rendered while email is null.
-  await expect(contact.locator('a[href^="mailto:"]')).toHaveCount(0);
-  await expect(contact.locator('a')).toHaveCount(0);
-  await expect(contact.locator('form')).toHaveCount(0);
+  if (email) {
+    const link = contact.locator('a[href^="mailto:"]');
+    await expect(link).toHaveCount(1);
+    await expect(link).toHaveAttribute('href', `mailto:${email}`);
+    await expect(link).toContainText(email);
+    await expect(contact.getByRole('note')).toHaveCount(0);
+    await expect(contact.locator('.contact-placeholder')).toHaveCount(0);
+  } else {
+    const note = contact.getByRole('note');
+    await expect(note).toBeVisible();
+    await expect(note).toHaveClass(/contact-placeholder/);
+    await expect(contact.locator('a[href^="mailto:"]')).toHaveCount(0);
+    await expect(contact.locator('a')).toHaveCount(0);
+    await expect(contact.locator('form')).toHaveCount(0);
+  }
 });
