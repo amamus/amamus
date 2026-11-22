@@ -14,7 +14,7 @@
     "lint:workflows": "node scripts/lint-workflows.mjs",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
-    "test:build": "vitest run tests/unit/buildOutput.test.ts",
+    "test:build": "npm run build && vitest run tests/build",
     "test:e2e": "playwright test",
     "audit:a11y": "playwright test tests/e2e/a11y.spec.ts",
     "audit:lighthouse": "node tests/scripts/lighthouse.mjs",
